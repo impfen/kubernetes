@@ -8,6 +8,14 @@ Create a [configMap](https://kubernetes.io/docs/tasks/configure-pod-container/co
 
 ```bash
 
-kubectl create configmap kiebitz-dev --from-file=001_default.yml --from-file=002_admin.json --from-file=003_appt.json --from-file=004_notification.json
+cd charts/kiebitz
+
+```
+
+adapt the configuration files and use `helm` to install
+
+```bash
+
+helm install mykiebitz .
 
 ```
