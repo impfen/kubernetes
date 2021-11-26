@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{.Values.config.settings}}
+data:
+  {{- $files := .Files }}
+  {{- range .Values.config.files }}
+  {{ . }}: |-
+        {{- $files.Get . | nindent 8 -}}
+  {{- end }}

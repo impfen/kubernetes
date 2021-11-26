@@ -1,0 +1,76 @@
+{
+  "admin": {
+    "signing": {
+      "keys": [
+        {
+          "name": "root",
+          "type": "ecdsa",
+          "format": "spki-pkcs8",
+          "params": {
+            "curve": "p-256"
+          },
+          "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEyhLj6wVW319XZvcn9YR3fm0ButqJ/vBzkpEAdh2sRtcTUv+WI8FEw3gSG0NJeSzw3r0trVVk/44pIrcUeQc9EQ==",
+          "purposes": [
+            "sign",
+            "verify"
+          ],
+          "private_key": "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQghl3xsWCJeGCXRcq1FlLEMFFcEoVvFPUK72F5bAVaCamhRANCAATKEuPrBVbfX1dm9yf1hHd+bQG62on+8HOSkQB2HaxG1xNS/5YjwUTDeBIbQ0l5LPDevS2tVWT/jikitxR5Bz0R"
+        },
+        {
+          "name": "token",
+          "type": "ecdsa",
+          "format": "spki-pkcs8",
+          "params": {
+            "curve": "p-256"
+          },
+          "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEzOIpRVmzyRMhjnYjuWqoseEaAytYz4QLIEh2INvEgfHuUsk4R3jvAfextZwZ82xncLAUsUSuBEebGkoBpWP+WQ==",
+          "purposes": [
+            "sign",
+            "verify"
+          ],
+          "private_key": "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgwFdbVq9WzmpmTH2PgIHtQXpdq2FAAfPnbc7yPRi0WgWhRANCAATM4ilFWbPJEyGOdiO5aqix4RoDK1jPhAsgSHYg28SB8e5SyThHeO8B97G1nBnzbGdwsBSxRK4ER5saSgGlY/5Z"
+        },
+        {
+          "name": "notification",
+          "type": "ecdh",
+          "format": "spki-pkcs8",
+          "params": {
+            "curve": "p-256"
+          },
+          "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEmkOs3fCKXOcti+lCIgUdK1EYJGGVaGO9UpfbmWRP90JvHWFmJyxMRE8wJg+C3wL193RN3rTulnh6DCgKWufm1Q==",
+          "purposes": [
+            "deriveKey"
+          ],
+          "private_key": "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQg0DX0jPe0IprBf58ZUyZ7L3THCyaFmDb05ufHHqClMFuhRANCAASaQ6zd8Ipc5y2L6UIiBR0rURgkYZVoY71Sl9uZZE/3Qm8dYWYnLExETzAmD4LfAvX3dE3etO6WeHoMKApa5+bV"
+        },
+        {
+          "name": "provider",
+          "type": "ecdh",
+          "format": "spki-pkcs8",
+          "params": {
+            "curve": "p-256"
+          },
+          "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEKzvorDAN0eVd1TO3AeSk2JXZ9eeULMHb4s2NN31mjcs9v+BsfRE7tzJpjC+tfWv8/xq8K1+9b9a9dXhbWS9GXw==",
+          "purposes": [
+            "deriveKey"
+          ],
+          "private_key": "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgjpzEOzH9ACU2ECyJAVxKruujnxYtfrQe4Xfxc+gi6eChRANCAAQrO+isMA3R5V3VM7cB5KTYldn155QswdvizY03fWaNyz2/4Gx9ETu3MmmML619a/z/GrwrX71v1r11eFtZL0Zf"
+        },
+        {
+          "name": "queue",
+          "type": "ecdh",
+          "format": "spki-pkcs8",
+          "params": {
+            "curve": "p-256"
+          },
+          "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAErpOYF+epq+rJsxzQEfFLwjwjW6Ym8phOVYcjFqU+OKmX+kQ18Q+cvJIveZVs+37k8SBf+0H4KVU9QbEKUoo48Q==",
+          "purposes": [
+            "deriveKey"
+          ],
+          "private_key": "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgPLd6ubH2cq7rEkhXHuwMFu1r1YoZJdOnYiq2X79LK+GhRANCAASuk5gX56mr6smzHNAR8UvCPCNbpibymE5VhyMWpT44qZf6RDXxD5y8ki95lWz7fuTxIF/7QfgpVT1BsQpSijjx"
+        }
+      ]
+    }
+  },
+  "notification": null
+}

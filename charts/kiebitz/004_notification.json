@@ -1,0 +1,21 @@
+{
+  "notification": {
+    "rpc": null,
+    "mail": null,
+    "secret": "jCV3kwzXoPYAUDSij03Zr15IcfApYX7XDk2nPDcZyvc=",
+    "keys": [
+      {
+        "name": "notification",
+        "type": "ecdh",
+        "format": "spki-pkcs8",
+        "params": {
+          "curve": "p-256"
+        },
+        "public_key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEmkOs3fCKXOcti+lCIgUdK1EYJGGVaGO9UpfbmWRP90JvHWFmJyxMRE8wJg+C3wL193RN3rTulnh6DCgKWufm1Q==",
+        "purposes": [
+          "deriveKey"
+        ]
+      }
+    ]
+  }
+}
