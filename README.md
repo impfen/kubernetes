@@ -1,21 +1,44 @@
-# kubernetes
+# Kubernetes deployment of kiebitz
 
-All necessary files to deploy Kiebitz in Kubernetes
+## Content
 
-# Configuration
+- in charts/kiebitz you find an working Helm chart. It is has been created by `helm init`. Some of the templates may be not functional
+- in container/kiebitz there is a Dockerfile creating a Kiebitz image from scratch
+- EXAMPLE.md contains an example session how to install Kiebitz with a Redis database
+- LICENSE contains the text of the AGPL license
+- MINIKUBE.md is a description to setup Minikube for running Kiebitz locally
+- settings/dev contains a setup suitable for local testing
 
-Create a [configMap](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/) with the content of the `kiebitz/services/settings/dev` directory
-
-```bash
-
-cd charts/kiebitz
+## Directory tree
 
 ```
-
-adapt the configuration files and use `helm` to install
-
-```bash
-
-helm install mykiebitz .
-
+.
+├── charts
+│   └── kiebitz
+│       ├── charts
+│       ├── Chart.yaml
+│       ├── templates
+│       │   ├── deployment.yaml
+│       │   ├── _helpers.tpl
+│       │   ├── hpa.yaml
+│       │   ├── ingress.yaml
+│       │   ├── NOTES.txt
+│       │   ├── serviceaccount.yaml
+│       │   ├── service.yaml
+│       │   └── tests
+│       │       └── test-connection.yaml
+│       └── values.yaml
+├── container
+│   └── kiebitz
+│       └── Dockerfile
+├── EXAMPLE.md
+├── LICENSE
+├── MINIKUBE.md
+├── README.md
+└── settings
+    └── dev
+        ├── 001_default.yml
+        ├── 002_admin.json
+        ├── 003_appt.json
+        └── 004_notification.json
 ```
