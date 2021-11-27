@@ -3,14 +3,14 @@ meter:
   name: meter
   type: redis
   settings:
-    addresses: ["localhost:6379"]
+    addresses: ["meter-redis-ha:6379"]
     database: 1
     password: ""
 database:
   name: db
   type: redis
   settings:
-    addresses: ["localhost:6379"]
+    addresses: ["db-redis-ha:6379"]
     database: 0
     password: ""
 storage:
