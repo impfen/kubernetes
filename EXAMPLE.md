@@ -17,7 +17,7 @@ cd import/kiebitz/kubernetes
 
 
 ```bash
-tree | cat
+tree 
 ```
 
     .
@@ -227,150 +227,150 @@ cat container/kiebitz/Dockerfile
 
 
 ```bash
-docker build  -t $KIEBITZ container/kiebitz
+docker build -t $KIEBITZ container/kiebitz 
 ```
 
     Sending build context to Docker daemon  2.048kB
     Step 1/8 : FROM golang:1.16 as builder
      ---> 5b838b7289de
     Step 2/8 : RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go install -v github.com/kiebitz-oss/services/cmd/kiebitz@latest
-     ---> Running in bc063c1f224a
-    [91mgo: downloading github.com/kiebitz-oss/services v0.0.0-20211126211101-fe405d3f0767
-    [0m[91mgo: downloading github.com/go-redis/redis v6.15.9+incompatible
-    [0m[91mgo: downloading github.com/kiprotect/go-helpers v0.0.0-20210706144641-b74c3f0f016d
-    [0m[91mgo: downloading github.com/urfave/cli v1.22.5
-    [0m[91mgo: downloading github.com/prometheus/client_golang v1.11.0
-    [0m[91mgo: downloading github.com/sirupsen/logrus v1.8.1
-    [0m[91mgo: downloading golang.org/x/sys v0.0.0-20210603081109-ebe580a85c40
-    [0m[91mgo: downloading golang.org/x/crypto v0.0.0-20200709230013-948cd5f35899
-    [0m[91mgo: downloading gopkg.in/yaml.v2 v2.3.0
-    [0m[91mgo: downloading github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d
-    [0m[91mgo: downloading github.com/russross/blackfriday/v2 v2.0.1
-    [0m[91mgo: downloading github.com/prometheus/common v0.26.0
+     ---> Running in 76419449b17e
+    go: downloading github.com/kiebitz-oss/services v0.0.0-20211126211101-fe405d3f0767
+    go: downloading github.com/go-redis/redis v6.15.9+incompatible
+    go: downloading github.com/kiprotect/go-helpers v0.0.0-20210706144641-b74c3f0f016d
+    go: downloading github.com/urfave/cli v1.22.5
+    go: downloading github.com/prometheus/client_golang v1.11.0
+    go: downloading github.com/sirupsen/logrus v1.8.1
+    go: downloading golang.org/x/crypto v0.0.0-20200709230013-948cd5f35899
+    go: downloading gopkg.in/yaml.v2 v2.3.0
+    go: downloading golang.org/x/sys v0.0.0-20210603081109-ebe580a85c40
+    go: downloading github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d
+    go: downloading github.com/russross/blackfriday/v2 v2.0.1
+    go: downloading github.com/prometheus/common v0.26.0
     go: downloading github.com/prometheus/client_model v0.2.0
-    [0m[91mgo: downloading github.com/prometheus/procfs v0.6.0
-    go: downloading github.com/beorn7/perks v1.0.1
+    go: downloading github.com/cespare/xxhash/v2 v2.1.1
+    go: downloading github.com/prometheus/procfs v0.6.0
     go: downloading github.com/golang/protobuf v1.4.3
-    [0m[91mgo: downloading github.com/cespare/xxhash/v2 v2.1.1
-    [0m[91mgo: downloading github.com/shurcooL/sanitized_anchor_name v1.0.0
-    [0m[91mgo: downloading github.com/matttproud/golang_protobuf_extensions v1.0.1
-    [0m[91mgo: downloading google.golang.org/protobuf v1.26.0-rc.1
-    [0m[91mgoogle.golang.org/protobuf/internal/flags
-    [0m[91mgithub.com/kiprotect/go-helpers/maps
+    go: downloading github.com/beorn7/perks v1.0.1
+    go: downloading github.com/shurcooL/sanitized_anchor_name v1.0.0
+    go: downloading github.com/matttproud/golang_protobuf_extensions v1.0.1
+    go: downloading google.golang.org/protobuf v1.26.0-rc.1
+    google.golang.org/protobuf/internal/flags
     golang.org/x/sys/internal/unsafeheader
-    [0m[91mgithub.com/shurcooL/sanitized_anchor_name
-    [0m[91mgoogle.golang.org/protobuf/internal/set
-    [0m[91mgoogle.golang.org/protobuf/internal/pragma
-    [0m[91mgithub.com/beorn7/perks/quantile
-    [0m[91mgithub.com/go-redis/redis/internal/hashtag
+    github.com/kiprotect/go-helpers/maps
+    github.com/shurcooL/sanitized_anchor_name
+    google.golang.org/protobuf/internal/set
+    google.golang.org/protobuf/internal/pragma
+    github.com/go-redis/redis/internal/hashtag
+    github.com/beorn7/perks/quantile
     github.com/prometheus/common/internal/bitbucket.org/ww/goautoneg
+    github.com/cespare/xxhash/v2
     github.com/go-redis/redis/internal/util
     github.com/go-redis/redis/internal/consistenthash
-    github.com/cespare/xxhash/v2
-    [0m[91mgoogle.golang.org/protobuf/internal/detrand
-    [0m[91mgoogle.golang.org/protobuf/internal/version
-    [0m[91mgithub.com/prometheus/common/model
-    [0m[91mnet
-    [0m[91mgolang.org/x/sys/unix
-    [0m[91mgithub.com/prometheus/procfs/internal/fs
+    golang.org/x/sys/unix
+    google.golang.org/protobuf/internal/detrand
+    net
+    google.golang.org/protobuf/internal/version
+    github.com/prometheus/procfs/internal/fs
     github.com/prometheus/procfs/internal/util
-    [0m[91mgithub.com/russross/blackfriday/v2
-    [0m[91mgithub.com/kiprotect/go-helpers/errors
-    [0m[91mgopkg.in/yaml.v2
-    [0m[91mgithub.com/go-redis/redis/internal/proto
-    [0m[91mgoogle.golang.org/protobuf/internal/errors
-    [0m[91mgithub.com/kiprotect/go-helpers/forms
-    [0m[91mgoogle.golang.org/protobuf/encoding/protowire
-    [0m[91mgoogle.golang.org/protobuf/reflect/protoreflect
-    [0m[91mgithub.com/cpuguy83/go-md2man/v2/md2man
-    [0m[91mgithub.com/urfave/cli
-    [0m[91mgoogle.golang.org/protobuf/internal/encoding/messageset
-    [0m[91mgoogle.golang.org/protobuf/internal/order
-    [0m[91mgoogle.golang.org/protobuf/internal/genid
-    [0m[91mgoogle.golang.org/protobuf/internal/strs
-    [0m[91mgoogle.golang.org/protobuf/internal/descfmt
+    github.com/prometheus/common/model
+    github.com/kiprotect/go-helpers/errors
+    github.com/russross/blackfriday/v2
+    github.com/go-redis/redis/internal/proto
+    gopkg.in/yaml.v2
+    google.golang.org/protobuf/internal/errors
+    github.com/kiprotect/go-helpers/forms
+    google.golang.org/protobuf/encoding/protowire
+    google.golang.org/protobuf/reflect/protoreflect
+    github.com/cpuguy83/go-md2man/v2/md2man
+    github.com/urfave/cli
+    google.golang.org/protobuf/internal/encoding/messageset
+    google.golang.org/protobuf/internal/strs
     google.golang.org/protobuf/internal/descopts
+    google.golang.org/protobuf/internal/order
     google.golang.org/protobuf/runtime/protoiface
-    [0m[91mgoogle.golang.org/protobuf/reflect/protoregistry
-    [0m[91mgoogle.golang.org/protobuf/internal/encoding/text
-    [0m[91mgithub.com/kiprotect/go-helpers/yaml
-    [0m[91mgithub.com/sirupsen/logrus
-    [0m[91mgolang.org/x/crypto/ssh/terminal
+    google.golang.org/protobuf/internal/descfmt
+    google.golang.org/protobuf/internal/genid
+    github.com/kiprotect/go-helpers/yaml
+    google.golang.org/protobuf/reflect/protoregistry
+    google.golang.org/protobuf/internal/encoding/text
     google.golang.org/protobuf/proto
-    [0m[91mgoogle.golang.org/protobuf/internal/encoding/defval
-    [0m[91mvendor/golang.org/x/net/http/httpproxy
-    [0m[91mgithub.com/go-redis/redis/internal
-    [0m[91mcrypto/x509
+    golang.org/x/crypto/ssh/terminal
+    github.com/sirupsen/logrus
+    google.golang.org/protobuf/internal/encoding/defval
     net/textproto
+    vendor/golang.org/x/net/http/httpproxy
+    crypto/x509
+    github.com/go-redis/redis/internal
     github.com/prometheus/procfs
-    [0m[91mgoogle.golang.org/protobuf/encoding/prototext
-    [0m[91mgoogle.golang.org/protobuf/internal/filedesc
-    [0m[91mgithub.com/go-redis/redis/internal/pool
-    [0m[91mgithub.com/kiprotect/go-helpers/settings
-    [0m[91mvendor/golang.org/x/net/http/httpguts
+    google.golang.org/protobuf/encoding/prototext
+    google.golang.org/protobuf/internal/filedesc
+    github.com/go-redis/redis/internal/pool
+    vendor/golang.org/x/net/http/httpguts
     mime/multipart
-    [0m[91mgithub.com/kiebitz-oss/services/crypto
-    [0m[91mcrypto/tls
-    [0m[91mgoogle.golang.org/protobuf/internal/encoding/tag
-    [0m[91mgoogle.golang.org/protobuf/internal/impl
-    [0m[91mnet/http/httptrace
-    [0m[91mnet/smtp
-    [0m[91mgithub.com/go-redis/redis
-    [0m[91mnet/http
-    [0m[91mgoogle.golang.org/protobuf/internal/filetype
-    [0m[91mgoogle.golang.org/protobuf/runtime/protoimpl
-    [0m[91mgoogle.golang.org/protobuf/types/known/timestamppb
+    github.com/kiprotect/go-helpers/settings
+    github.com/kiebitz-oss/services/crypto
+    crypto/tls
+    google.golang.org/protobuf/internal/encoding/tag
+    google.golang.org/protobuf/internal/impl
+    net/http/httptrace
+    net/smtp
+    github.com/go-redis/redis
+    net/http
+    google.golang.org/protobuf/internal/filetype
+    google.golang.org/protobuf/runtime/protoimpl
     google.golang.org/protobuf/types/known/anypb
+    google.golang.org/protobuf/types/known/timestamppb
     google.golang.org/protobuf/types/known/durationpb
     github.com/golang/protobuf/proto
-    [0m[91mgithub.com/golang/protobuf/ptypes/timestamp
-    [0m[91mgithub.com/golang/protobuf/ptypes/duration
-    [0m[91mgithub.com/golang/protobuf/ptypes/any
-    [0m[91mgithub.com/golang/protobuf/ptypes
+    github.com/golang/protobuf/ptypes/timestamp
+    github.com/golang/protobuf/ptypes/any
+    github.com/golang/protobuf/ptypes/duration
+    github.com/golang/protobuf/ptypes
     github.com/prometheus/client_model/go
-    [0m[91mgithub.com/matttproud/golang_protobuf_extensions/pbutil
-    [0m[91mgithub.com/prometheus/client_golang/prometheus/internal
-    [0m[91mexpvar
-    [0m[91mgithub.com/prometheus/common/expfmt
-    [0m[91mgithub.com/prometheus/client_golang/prometheus
-    [0m[91mgithub.com/prometheus/client_golang/prometheus/promhttp
-    [0m[91mgithub.com/kiebitz-oss/services/metrics
-    [0m[91mgithub.com/kiebitz-oss/services
-    [0m[91mgithub.com/kiebitz-oss/services/http
+    github.com/matttproud/golang_protobuf_extensions/pbutil
+    github.com/prometheus/client_golang/prometheus/internal
+    expvar
+    github.com/prometheus/common/expfmt
+    github.com/prometheus/client_golang/prometheus
+    github.com/prometheus/client_golang/prometheus/promhttp
+    github.com/kiebitz-oss/services/metrics
+    github.com/kiebitz-oss/services
     github.com/kiebitz-oss/services/tls
-    [0m[91mgithub.com/kiebitz-oss/services/databases
-    [0m[91mgithub.com/kiebitz-oss/services/meters
-    [0m[91mgithub.com/kiebitz-oss/services/forms
-    [0m[91mgithub.com/kiebitz-oss/services/jsonrpc
-    [0m[91mgithub.com/kiebitz-oss/services/servers
-    [0m[91mgithub.com/kiebitz-oss/services/helpers
-    [0m[91mgithub.com/kiebitz-oss/services/cmd/helpers
-    [0m[91mgithub.com/kiebitz-oss/services/cmd
-    [0m[91mgithub.com/kiebitz-oss/services/definitions
-    [0m[91mgithub.com/kiebitz-oss/services/cmd/kiebitz
-    [0mRemoving intermediate container bc063c1f224a
-     ---> 6f6e058864b9
+    github.com/kiebitz-oss/services/databases
+    github.com/kiebitz-oss/services/http
+    github.com/kiebitz-oss/services/meters
+    github.com/kiebitz-oss/services/forms
+    github.com/kiebitz-oss/services/jsonrpc
+    github.com/kiebitz-oss/services/servers
+    github.com/kiebitz-oss/services/helpers
+    github.com/kiebitz-oss/services/cmd/helpers
+    github.com/kiebitz-oss/services/cmd
+    github.com/kiebitz-oss/services/definitions
+    github.com/kiebitz-oss/services/cmd/kiebitz
+    Removing intermediate container 76419449b17e
+     ---> b68b6fac8ae6
     Step 3/8 : FROM scratch
      ---> 
     Step 4/8 : ENV KIEBITZ_SETTINGS=/settings
-     ---> Running in 6b945666739b
-    Removing intermediate container 6b945666739b
-     ---> 0d1aba3dd143
+     ---> Running in fcd5583c55c3
+    Removing intermediate container fcd5583c55c3
+     ---> 4e287417f897
     Step 5/8 : CMD [ "/kiebitz","run","all" ]
-     ---> Running in 17686469b1c0
-    Removing intermediate container 17686469b1c0
-     ---> cbf2c9de7b81
+     ---> Running in eaea43723618
+    Removing intermediate container eaea43723618
+     ---> 7726237c4b91
     Step 6/8 : COPY --from=builder /go/bin/kiebitz kiebitz
-     ---> bc46f771ae1f
+     ---> d54a9889ee90
     Step 7/8 : EXPOSE 8888
-     ---> Running in 178df66d80dd
-    Removing intermediate container 178df66d80dd
-     ---> f5b8e93bb9d0
+     ---> Running in 6e94920c4a06
+    Removing intermediate container 6e94920c4a06
+     ---> 46ee7ce44154
     Step 8/8 : EXPOSE 9999
-     ---> Running in df6a1833b91f
-    Removing intermediate container df6a1833b91f
-     ---> 108d8fabddf5
-    Successfully built 108d8fabddf5
+     ---> Running in 7a619ac883f0
+    Removing intermediate container 7a619ac883f0
+     ---> ca8b0099f760
+    Successfully built ca8b0099f760
     Successfully tagged kiebitz:latest
 
 
