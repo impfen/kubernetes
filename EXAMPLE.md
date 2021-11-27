@@ -17,21 +17,15 @@ cd import/kiebitz/kubernetes
 
 
 ```bash
-tree 
+tree | cat
 ```
 
     .
     ├── charts
     │   └── kiebitz
-    │       ├── 001_default.yml
-    │       ├── 002_admin.json
-    │       ├── 003_appt.json
-    │       ├── 004_notification.json
     │       ├── charts
     │       ├── Chart.yaml
-    │       ├── settings
     │       ├── templates
-    │       │   ├── configmap.yaml
     │       │   ├── deployment.yaml
     │       │   ├── _helpers.tpl
     │       │   ├── hpa.yaml
@@ -48,9 +42,15 @@ tree
     ├── EXAMPLE.md
     ├── LICENSE
     ├── MINIKUBE.md
-    └── README.md
+    ├── README.md
+    └── settings
+        └── dev
+            ├── 001_default.yml
+            ├── 002_admin.json
+            ├── 003_appt.json
+            └── 004_notification.json
     
-    8 directories, 20 files
+    9 directories, 19 files
 
 
 
@@ -392,10 +392,29 @@ docker push  $REGISTRY/$KIEBITZ
     Using default tag: latest
     The push refers to repository [localhost:5000/kiebitz]
     
-    latest: digest: sha256:ba36557d2f897cf5169aaab7b3be1f5c99c4e835adcc84f66cab1307e18a65a8 size: 528
+    [1Blatest: digest: sha256:ba36557d2f897cf5169aaab7b3be1f5c99c4e835adcc84f66cab1307e18a65a8 size: 528
+
+
+### Install the configuration as secret
+
+As the config contains security token, it is nessecary to create it as token. 
+
+
+```bash
+(
+cd settings/dev
+kubectl create secret generic kiebitz-dev --from-file=001_default.yml --from-file=002_admin.json --from-file=003_appt.json --from-file=004_notification.json
+)
+```
+
+    /home/thomas/import/kiebitz/kubernetes/settings/dev
+    secret/kiebitz-dev created
 
 
 # Install the application using Helm
+
+The secret name from the last step is referred in the helm charts `values.yaml` as `.Values.config.settings`
+
 
 
 ```bash

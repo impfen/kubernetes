@@ -53,8 +53,8 @@ spec:
               mountPath: /settings  
       volumes:
       - name: settings
-        configMap:
-          name: {{.Values.config.settings}}      
+        secret:
+          secretName: {{.Values.config.settings}}      
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
