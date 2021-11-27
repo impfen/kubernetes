@@ -17,20 +17,20 @@ cd import/kiebitz/kubernetes
 
 
 ```bash
-tree
+tree | cat
 ```
 
-    [01;34m.[00m
-    ├── [01;34mcharts[00m
-    │   └── [01;34mkiebitz[00m
+    .
+    ├── charts
+    │   └── kiebitz
     │       ├── 001_default.yml
     │       ├── 002_admin.json
     │       ├── 003_appt.json
     │       ├── 004_notification.json
-    │       ├── [01;34mcharts[00m
+    │       ├── charts
     │       ├── Chart.yaml
-    │       ├── [01;34msettings[00m
-    │       ├── [01;34mtemplates[00m
+    │       ├── settings
+    │       ├── templates
     │       │   ├── configmap.yaml
     │       │   ├── deployment.yaml
     │       │   ├── _helpers.tpl
@@ -39,11 +39,11 @@ tree
     │       │   ├── NOTES.txt
     │       │   ├── serviceaccount.yaml
     │       │   ├── service.yaml
-    │       │   └── [01;34mtests[00m
+    │       │   └── tests
     │       │       └── test-connection.yaml
     │       └── values.yaml
-    ├── [01;34mcontainer[00m
-    │   └── [01;34mkiebitz[00m
+    ├── container
+    │   └── kiebitz
     │       └── Dockerfile
     ├── EXAMPLE.md
     ├── LICENSE
