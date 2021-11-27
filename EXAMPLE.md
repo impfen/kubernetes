@@ -392,7 +392,7 @@ docker push  $REGISTRY/$KIEBITZ
     Using default tag: latest
     The push refers to repository [localhost:5000/kiebitz]
     
-    [1Blatest: digest: sha256:ba36557d2f897cf5169aaab7b3be1f5c99c4e835adcc84f66cab1307e18a65a8 size: 528
+    latest: digest: sha256:ba36557d2f897cf5169aaab7b3be1f5c99c4e835adcc84f66cab1307e18a65a8 size: 528
 
 
 # Install the application using Helm
