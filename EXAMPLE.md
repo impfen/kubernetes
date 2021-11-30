@@ -221,8 +221,8 @@ cat container/kiebitz/Dockerfile
     COPY --from=builder /go/bin/kiebitz kiebitz
     
     # Ports
-    EXPOSE 8888
-    EXPOSE 9999
+    EXPOSE 11111
+    EXPOSE 22222
 
 
 
