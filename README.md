@@ -1,6 +1,3 @@
-
-# __Moved to [Impfterm-In](https://github.com/impfterm-in/kubernetes)__
-
 # Kubernetes deployment of kiebitz
 
 ## Content
