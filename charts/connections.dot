@@ -1,0 +1,142 @@
+digraph kiebitz {
+
+ "cert-manager" -> "let's encrypt" 
+
+   subgraph cluster_kubernetes{
+    label="Kubernetes Cluster"
+
+	subgraph cluster_redis {
+		
+		label = "redis";
+
+        subgraph cluster_meter{
+            label="meter - redis"
+            node [shape=box]; 
+
+
+            meter -> mr1
+            meter -> mr2
+            meter -> mrn
+            
+            meter [shape=diamond]
+
+
+            mr1 -> ms1
+            mr2 -> ms2
+            mrn -> msn
+
+    
+            ms1[shape=cylinder]
+            ms2[shape=cylinder]
+            msn[shape=cylinder]
+            
+            mr2->mrn[constraint=false,style=dotted,arrowhead=none]
+            ms2->msn[constraint=false,style=dotted,arrowhead=none]
+
+
+        }
+
+         subgraph cluster_db{
+            node [shape=box]; 
+            label="db - redis"
+            shape="rect"
+     
+            db -> db1
+            db -> db2
+            db -> dbn[label=":6n79"]
+            
+            db [shape=diamond]
+
+            db1 -> dbs1
+            db2 -> dbs2
+            dbn -> dbsn
+
+          
+            dbs1[shape=cylinder]
+            dbs2[shape=cylinder]
+            dbsn[shape=cylinder]
+             
+            db2->dbn[constraint=false,style=dotted,arrowhead=none]
+            dbs2->dbsn[constraint=false,style=dotted,arrowhead=none]
+
+        }
+	}
+   
+    subgraph cluster_application {
+        label=application
+        subgraph cluster_kiebitz {
+            node [shape=box]; 
+        
+        
+            k1 -> meter
+            k1 -> db
+            label = "kiebitz";
+            kiebitz[shape=diamond]
+            kiebitz -> k1
+            kiebitz -> k2
+            kiebitz -> kn
+
+            k2->kn[constraint=false,style=dotted,arrowhead=none]
+            
+        }
+
+        subgraph cluster_static {
+            node [shape=box]; 
+        
+        
+            label = "static html";
+            static[shape=diamond]
+            static->s1[label=":3000\napp=static"]
+            static->s2[label="app=static"]
+            static->sn
+            s2->sn[constraint=false,style=dotted,arrowhead=none]
+        }
+    }
+
+	subgraph cluster_ingress{
+       label=ingress
+       node [shape=Mdiamond];
+       ik->kiebitz
+       is -> static
+       ik[label="kiebitz"]
+       is[label="static"]
+       cert[shape="box"]
+
+    }
+
+    "cert-manager"->cert
+    "cert-manager"[shape="box"]
+ 	node [shape=Mdiamond];
+
+    subgraph cluster_storage{
+        node [shape=cylinder];
+
+
+      dbs1 -> pv_dbs1
+      dbs2 -> pv_dbs2
+      dbsn -> pv_dbsn
+
+      ms1 -> pv_ms1
+      ms2 -> pv_ms2
+      msn -> pv_msn
+      
+      pv_ms1[label="pv\nms 1"]
+      pv_ms2[label="pv\nms 2"]
+      pv_msn[label="pv\nms n"]
+
+      pv_dbs1[label="pv\ndbs 1"]
+      pv_dbs2[label="pv\ndbs 2"]
+      pv_dbsn[label="pv\ndbs n"]
+
+      label = "storage"
+
+     pv_dbs2->pv_dbsn[constraint=false,style=dotted,arrowhead=none]
+     pv_ms2->pv_msn[constraint=false,style=dotted,arrowhead=none]
+
+    }
+   
+    browser -> ik[label="impftermin.de:443/somepath/v1",labeljust=l]
+    browser -> is[label="impftermin.de:443/staticpath/v1"]
+    browser[shape=tab]
+   }
+}
