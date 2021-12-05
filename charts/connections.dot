@@ -43,7 +43,7 @@ digraph kiebitz {
      
             db -> db1
             db -> db2
-            db -> dbn[label=":6n79"]
+            db -> dbn[label=":6379"]
             
             db [shape=diamond]
 
@@ -72,7 +72,7 @@ digraph kiebitz {
             k1 -> db
             label = "kiebitz";
             kiebitz[shape=diamond]
-            kiebitz -> k1
+            kiebitz -> k1[label=":11111\n:22222"]
             kiebitz -> k2
             kiebitz -> kn
 
