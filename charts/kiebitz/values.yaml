@@ -4,16 +4,28 @@
 
 replicaCount: 1
 
+#
+# assumptions
+#   common registry
+#   common pullPolicy 
+#   common version tag
+#   
+# only for testing set pullPolicy to "Always" and tag to "latest" 
 image:
-  repository: localhost:5000/kiebitz
-#  pullPolicy: IfNotPresent
+  registry: localhost:5000
   pullPolicy: Always
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+#  tag: "latest"
+  kiebitz:
+    repository: kiebitz
+  static:
+     repository: static
+ 
 
 imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
+kiebitz:
+  nameOverride: ""
+static:
+  nameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -38,8 +50,12 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
-  port: 80
+  kiebitz:
+    type: ClusterIP
+    port: 80
+  static:
+    type: ClusterIP
+    port: 80
 
 ingress:
   enabled: false
@@ -88,8 +104,3 @@ config:
   # name of the configMap with the settings
   #
   settings: kiebitz-dev
-  files:
-    - 001_default.yml 
-    - 002_admin.json
-    - 003_appt.json
-    - 004_notification.json
