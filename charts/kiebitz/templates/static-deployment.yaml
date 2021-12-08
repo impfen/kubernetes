@@ -26,17 +26,15 @@ spec:
       {{- end }}
       serviceAccountName: {{ include "kiebitz.serviceAccountName" . }}
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+        {{- toYaml .Values.podSecurityContext.static | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml .Values.securityContext.static | nindent 12 }}
           image: "{{ .Values.image.registry }}/{{ .Values.image.static.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
           ports:
-            - containerPort: 11111
-              protocol: TCP
-            - containerPort: 22222
+            - containerPort: 3000
               protocol: TCP
 #          livenessProbe:
 #            httpGet:
@@ -48,13 +46,7 @@ spec:
 #              port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          volumeMounts:
-            - name: settings
-              mountPath: /settings  
       volumes:
-      - name: settings
-        secret:
-          secretName: {{.Values.config.settings}}      
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

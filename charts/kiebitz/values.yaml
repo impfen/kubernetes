@@ -12,13 +12,15 @@ replicaCount: 1
 #   
 # only for testing set pullPolicy to "Always" and tag to "latest" 
 image:
-  registry: localhost:5000
+#  registry: localhost:5000
+  registry: quay.io/thomasfricke
   pullPolicy: Always
 #  tag: "latest"
+  tag: 0.7
   kiebitz:
     repository: kiebitz
   static:
-     repository: static
+     repository: static-apps
  
 
 imagePullSecrets: []
@@ -38,16 +40,21 @@ serviceAccount:
 
 podAnnotations: {}
 
-podSecurityContext: {}
+podSecurityContext: 
+  kiebitz: {}
+  static: {}
   # fsGroup: 2000
 
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+securityContext:
+  kiebitz: 
+    runAsNonRoot: true
+  static:
+    capabilities:
+      drop:
+      - ALL
+#    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 101
 
 service:
   kiebitz:
