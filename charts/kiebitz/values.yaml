@@ -25,9 +25,9 @@ image:
 
 imagePullSecrets: []
 kiebitz:
-  nameOverride: ""
+  nameOverride: "kiebitz"
 static:
-  nameOverride: ""
+  nameOverride: "static"
 
 serviceAccount:
   # Specifies whether a service account should be created
