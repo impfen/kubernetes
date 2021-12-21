@@ -1,0 +1,56 @@
+{{- $fullName := include "static.fullname" . }}
+{{- $labels := include "static.labels" . }}
+{{- $values := .Values }}
+{{- $capabilities := .Capabilities }}
+{{- $settings := .Values.static.service }}
+{{- if $settings.ingress }}
+{{- if and $values.ingress.className (not (semverCompare ">=1.18-0" $capabilities.KubeVersion.GitVersion)) }}
+  {{- if not (hasKey $values.ingress.annotations "kubernetes.io/ingress.class") }}
+  {{- $_ := set $values.ingress.annotations "kubernetes.io/ingress.class" $values.ingress.className}}
+  {{- end }}
+{{- end }}
+{{- if semverCompare ">=1.19-0" $capabilities.KubeVersion.GitVersion }}
+apiVersion: networking.k8s.io/v1
+{{- else if semverCompare ">=1.14-0" $capabilities.KubeVersion.GitVersion }}
+apiVersion: networking.k8s.io/v1beta1
+{{- else }}
+apiVersion: extensions/v1beta1
+{{- end }}
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- $labels | nindent 4 }}
+  {{- with $values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if and $values.ingress.className (semverCompare ">=1.18-0" $capabilities.KubeVersion.GitVersion) }}
+  ingressClassName: {{ $values.ingress.className }}
+  {{- end }}
+  {{- if $settings.tls }}
+  tls:
+    - hosts:
+        - {{ $settings.hostname }}
+      secretName: {{ $fullName }}-certificate
+  {{- end }}
+  rules:
+    - host: {{ $settings.hostname }}
+      http:
+        paths:
+          - path: /
+            {{- if (semverCompare ">=1.18-0" $capabilities.KubeVersion.GitVersion) }}
+            pathType: Prefix
+            {{- end }}
+            backend:
+              {{- if semverCompare ">=1.19-0" $capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ $fullName }}
+                port:
+                  number: {{ $settings.port }}
+              {{- else }}
+              serviceName: {{ $fullName }}
+              servicePort: {{ $settings.port }}
+              {{- end }}
+{{- end }}

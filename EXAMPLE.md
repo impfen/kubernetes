@@ -193,6 +193,19 @@ kubectl get all
     statefulset.apps/db-redis-ha-server      1/1     97s
     statefulset.apps/meter-redis-ha-server   1/1     3m34s
 
+# Install nginx-ingress
+
+```bash
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm install ingress --namespace ingress --set=podSecurityPolicy.enabled=true ingress-nginx/ingress-nginx
+```
+
+# Install cert-manager
+
+```bash
+helm repo add jetstack https://charts.jetstack.io
+helm install cert-manager --namespace cert-manager --set installCRDs=true jetstack/cert-manager
+```
 
 # Create  a minimal `kiebitz` image
 

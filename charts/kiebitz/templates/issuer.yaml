@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  # different name
+  name: letsencryp
+spec:
+  acme:
+    server: {{ .Values.ingress.certServer }}
+    email: {{ .Values.ingress.certEmail }}
+    privateKeySecretRef:
+      # storing key material for the ACME account in dedicated secret
+      name: account-key
+    solvers:
+    - http01:
+       ingress:
+         class: {{ .Values.ingress.className }}

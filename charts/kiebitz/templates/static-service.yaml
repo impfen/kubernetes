@@ -5,9 +5,9 @@ metadata:
   labels:
     {{- include "static.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.service.static.type }}
+  type: {{ .Values.static.service.type }}
   ports:
-    - port: {{ .Values.service.static.port }}
+    - port: {{ .Values.static.service.port }}
       targetPort: http
       protocol: TCP
       name: http

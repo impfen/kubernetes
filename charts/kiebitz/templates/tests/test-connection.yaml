@@ -1,15 +1,19 @@
+
+{{- $fullName := include "kiebitz.fullname" . }}
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "kiebitz.fullname" . }}-test-connection"
+  name: "{{ $fullName }}-test-connection"
   labels:
     {{- include "kiebitz.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": test
 spec:
   containers:
-    - name: wget
+    {{- range $service, $settings := .Values.kiebitz.service }}
+    - name: wget-{{ $service }}
       image: busybox
       command: ['wget']
-      args: ['{{ include "kiebitz.fullname" . }}:{{ .Values.service.kiebitz.port }}']
+      args: ['{{ $fullName }}:{{ $settings.port }}']
+    {{- end }}
   restartPolicy: Never
