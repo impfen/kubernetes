@@ -28,7 +28,7 @@ jobs:
         helm repo add dandydev https://dandydeveloper.github.io/charts
         helm install meter --set replicas=1 dandydev/redis-ha
         helm install db --set replicas=1 dandydev/redis-ha
-        helm install kiebitz tree/main/charts/kiebitz
+        helm install kiebitz ./charts/kiebitz
         helm ls
         kubectl wait -l statefulset.kubernetes.io/pod-name=meter-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
         kubectl wait -l statefulset.kubernetes.io/pod-name=db-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
