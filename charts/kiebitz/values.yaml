@@ -15,8 +15,7 @@ image:
 #  registry: localhost:5000
   registry: quay.io/thomasfricke
   pullPolicy: Always
-#  tag: "latest"
-  tag: 0.7
+  tag: "latest"
   kiebitz:
     repository: kiebitz
   static:
