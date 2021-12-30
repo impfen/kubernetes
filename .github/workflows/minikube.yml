@@ -21,9 +21,11 @@ jobs:
         version: v3.4.0
     - name: Install redis
       run: |
-        echo "------------------ check empty helm------------------"
         helm repo add dandydev https://dandydeveloper.github.io/charts
         helm install meter --set replicas=1 dandydev/redis-ha
         helm install db --set replicas=1 dandydev/redis-ha
         helm ls
-        kubectl get pods -A
+        kubectl wait -l statefulset.kubernetes.io/pod-name=meter-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
+        kubectl wait -l statefulset.kubernetes.io/pod-name=db-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
+
+        kubectl get all
