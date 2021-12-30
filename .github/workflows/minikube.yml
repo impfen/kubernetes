@@ -19,11 +19,8 @@ jobs:
       uses: azure/setup-helm@v1
       with:
         version: v3.4.0
-      run: |
-          helm ls
     - name: Test service URLs
       run: |
         minikube service list
-        minikube service example --url
         echo "------------------opening the service------------------"
-        curl $(minikube service example --url)  
+        helm ls
