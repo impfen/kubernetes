@@ -15,16 +15,12 @@ jobs:
       uses: medyagh/setup-minikube@master
     - name: Try the cluster !
       run: kubectl get pods -A
-    - name: Build image
+    - name: Install Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.4.0
       run: |
-        export SHELL=/bin/bash
-        eval $(minikube -p minikube docker-env)
-        docker build -f ./Dockerfile -t local/example .
-        echo -n "verifying images:"
-        docker images        
-    - name: Deploy to minikube
-      run:
-        kubectl apply -f deploy-to-minikube.yaml
+         helm ls
     - name: Test service URLs
       run: |
         minikube service list
