@@ -15,6 +15,10 @@ jobs:
       uses: medyagh/setup-minikube@master
     - name: Show all pods
       run: kubectl get pods -A
+    - name: List contents
+      run: |
+        pwd
+        ls -R .
     - name: Install Helm
       uses: azure/setup-helm@v1
       with:
