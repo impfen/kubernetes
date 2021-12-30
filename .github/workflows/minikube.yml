@@ -1,4 +1,4 @@
-name: CI
+name: Minikube Helm Deployment
 on:
   push:
     branches: [ main ]
@@ -13,14 +13,17 @@ jobs:
     - uses: actions/checkout@v2
     - name: Start minikube
       uses: medyagh/setup-minikube@master
-    - name: Try the cluster !
+    - name: Show all pods
       run: kubectl get pods -A
     - name: Install Helm
       uses: azure/setup-helm@v1
       with:
         version: v3.4.0
-    - name: Test service URLs
+    - name: Install redis
       run: |
-        minikube service list
-        echo "------------------opening the service------------------"
+        echo "------------------ check empty helm------------------"
+        helm repo add dandydev https://dandydeveloper.github.io/charts
+        helm install meter --set replicas=1 dandydev/redis-ha
+        helm install db --set replicas=1 dandydev/redis-ha
         helm ls
+        kubectl get pods -A
