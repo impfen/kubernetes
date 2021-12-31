@@ -23,12 +23,26 @@ jobs:
       uses: azure/setup-helm@v1
       with:
         version: v3.4.0
-    - name: Install Application
+        - name: Install Redis
       run: |
         helm repo add dandydev https://dandydeveloper.github.io/charts
         helm install meter --set replicas=1 dandydev/redis-ha
         helm install db --set replicas=1 dandydev/redis-ha
-        helm install kiebitz-minikube ./charts/kiebitz
+        
+        helm ls
+        
+        cat <<EOF
+        
+        waiting for Redis pods to become ready
+        
+        EOF
+        
+        kubectl wait -l statefulset.kubernetes.io/pod-name=meter-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
+        kubectl wait -l statefulset.kubernetes.io/pod-name=db-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
+
+    - name: Install Application
+      run: |
+        echo Install secret
         (
           cd settings/dev
           kubectl create secret generic kiebitz-dev \
@@ -37,11 +51,15 @@ jobs:
              --from-file=003_appt.json \
              --from-file=004_notification.json
         )
-        helm ls
-        kubectl wait -l statefulset.kubernetes.io/pod-name=meter-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
-        kubectl wait -l statefulset.kubernetes.io/pod-name=db-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
-
-        kubectl get all
+        
+        
+        helm install kiebitz-minikube ./charts/kiebitz
+        
+        cat <<EOF
+        
+        waiting for deployments getting available
+        
+        EOF
 
         kubectl wait --for=condition=available --timeout=600s deployment/kiebitz-minikube-static
         kubectl wait --for=condition=available --timeout=600s deployment/kiebitz-minikube-kiebitz
