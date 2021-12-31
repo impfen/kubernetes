@@ -23,7 +23,7 @@ jobs:
       uses: azure/setup-helm@v1
       with:
         version: v3.4.0
-        - name: Install Redis
+    - name: Helm install Redis
       run: |
         helm repo add dandydev https://dandydeveloper.github.io/charts
         helm install meter --set replicas=1 dandydev/redis-ha
@@ -40,7 +40,7 @@ jobs:
         kubectl wait -l statefulset.kubernetes.io/pod-name=meter-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
         kubectl wait -l statefulset.kubernetes.io/pod-name=db-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
 
-    - name: Install Application
+    - name: Helm install Application
       run: |
         echo Install secret
         (
