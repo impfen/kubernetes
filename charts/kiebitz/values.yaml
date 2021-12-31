@@ -40,7 +40,9 @@ serviceAccount:
 podAnnotations: {}
 
 podSecurityContext: 
-  kiebitz: {}
+  kiebitz:
+    runAsNonRoot: true
+    runAsUser: 101101
   static: {}
   # fsGroup: 2000
 
