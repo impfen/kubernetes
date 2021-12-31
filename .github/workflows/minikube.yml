@@ -63,6 +63,7 @@ jobs:
 
         sleep 10
         kubectl get all
+        kubectl describe pods
         kubectl logs -l "app.kubernetes.io/name=kiebitz,app.kubernetes.io/instance=kiebitz-minikube"
 
         kubectl wait --for=condition=available --timeout=600s deployment/kiebitz-minikube-static
