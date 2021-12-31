@@ -28,7 +28,7 @@ jobs:
         helm repo add dandydev https://dandydeveloper.github.io/charts
         helm install meter --set replicas=1 dandydev/redis-ha
         helm install db --set replicas=1 dandydev/redis-ha
-        helm install kiebitz ./charts/kiebitz
+        helm install kiebitz-minikube ./charts/kiebitz
         (
           cd settings/dev
           kubectl create secret generic kiebitz-dev \
@@ -41,7 +41,9 @@ jobs:
         kubectl wait -l statefulset.kubernetes.io/pod-name=meter-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
         kubectl wait -l statefulset.kubernetes.io/pod-name=db-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
 
-        # kubectl wait --for=condition=available --timeout=600s deployment/kiebitz-static
-        # kubectl wait --for=condition=available --timeout=600s deployment/kiebitz-kiebitz
+        kubectl get all
+
+        kubectl wait --for=condition=available --timeout=600s deployment/kiebitz-minikube-static
+        kubectl wait --for=condition=available --timeout=600s deployment/kiebitz-minikube-kiebitz
 
         kubectl get all
