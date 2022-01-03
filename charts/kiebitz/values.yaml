@@ -15,8 +15,7 @@ image:
 #  registry: localhost:5000
   registry: quay.io/thomasfricke
   pullPolicy: Always
-#  tag: "latest"
-  tag: 0.7
+  tag: "latest"
   kiebitz:
     repository: kiebitz
   static:
@@ -41,7 +40,9 @@ serviceAccount:
 podAnnotations: {}
 
 podSecurityContext: 
-  kiebitz: {}
+  kiebitz:
+    runAsNonRoot: true
+    runAsUser: 101101
   static: {}
   # fsGroup: 2000
 
@@ -94,7 +95,7 @@ resources: {}
 
 autoscaling:
   enabled: false
-  minReplicas: 1
+  minReplicas: 3
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
