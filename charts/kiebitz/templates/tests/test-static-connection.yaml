@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "static.fullname" . }}-test-connection"
+  labels:
+    {{- include "static.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  serviceAccountName: default #{{ include "kiebitz.serviceAccountName" . }}
+  automountServiceAccountToken: false
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['-O', '-', '-q', "{{ include "static.fullname" . }}" ]
+  restartPolicy: Never
