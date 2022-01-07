@@ -70,3 +70,6 @@ jobs:
         kubectl wait --for=condition=available --timeout=600s deployment/kiebitz-minikube-kiebitz
 
         kubectl get all
+     - name: Helm tests
+       run: |
+          helm test kiebitz-minikube --debug --logs

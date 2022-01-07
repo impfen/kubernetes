@@ -7,7 +7,7 @@ metadata:
   annotations:
     "helm.sh/hook": test
 spec:
-  serviceAccountName: default #{{ include "kiebitz.serviceAccountName" . }}
+  serviceAccountName: {{ include "kiebitz.serviceAccountName" . }}
   automountServiceAccountToken: false
   containers:
     - name: wget
