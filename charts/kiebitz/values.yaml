@@ -16,18 +16,46 @@ image:
   registry: quay.io/thomasfricke
   pullPolicy: Always
 #  tag: "latest"
-  tag: 0.7
+  tag: 0.7 
   kiebitz:
     repository: kiebitz
   static:
-     repository: static-apps
- 
+    repository: static-apps
+
+certManager: false 
 
 imagePullSecrets: []
 kiebitz:
   nameOverride: "kiebitz"
+  service:
+    kiebitz:
+      type: ClusterIP
+      port: 80
+      ingress: true # enable ingress for this service
+      hostname: kiebitz.example.com # ingress hostname
+      tls: false # enable tls and letsencrypt
+    storage:
+      type: ClusterIP
+      port: 11111
+      ingress: true
+      hostname: storage.example.com
+      tls: true
+    appointments:
+      type: ClusterIP
+      port: 22222
+      ingress: true
+      hostname: appointments.example.com
+      tls: false
 static:
   nameOverride: "static"
+  service:
+    type: ClusterIP
+    port: 80
+    ingress: true
+    hostname: static.example.com
+    tls: true
+
+
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -56,29 +84,16 @@ securityContext:
     runAsNonRoot: true
     runAsUser: 101
 
-service:
-  kiebitz:
-    type: ClusterIP
-    port: 80
-  static:
-    type: ClusterIP
-    port: 80
 
+
+# generic ingress and letsencrypt settings for all services
 ingress:
-  enabled: false
-  className: ""
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+  className: "nginx"
+  certEmail: "hostmaster@example.com"
+  certServer: "https://acme-staging-v02.api.letsencrypt.org/directory" # change to "https://acme-v02.api.letsencrypt.org/directory" for produktion
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

@@ -1,0 +1,19 @@
+{{- if .Values.certManager  }}
+{{- $fullName := include "static.fullname" . }}
+{{- $labels := include "static.labels" . }}
+{{- $values := .Values }}
+{{- $capabilities := .Capabilities }}
+{{- $settings := .Values.static.service }}
+{{- if and $settings.tls }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ $fullName }}-cert
+spec:
+  secretName: {{ $fullName }}-certificate
+  issuerRef:
+    name: letsencrypt
+  dnsNames:
+  - {{ $settings.hostname }}
+{{- end }}
+{{- end }}
