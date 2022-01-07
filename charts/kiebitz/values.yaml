@@ -12,15 +12,14 @@ replicaCount: 1
 #   
 # only for testing set pullPolicy to "Always" and tag to "latest" 
 image:
-#  registry: localhost:5000
-  registry: quay.io/thomasfricke
+  registry: ghcr.io/kiebitz-oss
   pullPolicy: Always
-#  tag: "latest"
-  tag: 0.7 
+  tag: "main"
+#  tag: 0.7 
   kiebitz:
-    repository: kiebitz
+    repository: services-inoeg
   static:
-    repository: static-apps
+    repository: apps-inoeg
 
 certManager: false 
 
