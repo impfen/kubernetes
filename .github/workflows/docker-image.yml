@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: container/apps-inoeg
+        working-directory: kubernetes/container/apps-inoeg
     permissions:
       contents: read
       packages: write
