@@ -24,10 +24,8 @@ env:
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: kubernetes/container/apps-inoeg
-    permissions:
+
+  permissions:
       contents: read
       packages: write
 
@@ -57,7 +55,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: container/apps-inoeg
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
