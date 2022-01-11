@@ -17,7 +17,6 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: apps-inoeg-${{GITHUB_REF##*/}}:latest
 
 jobs:
   build-and-push-image:
@@ -42,7 +41,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/apps-inoeg-${{ steps.branch-name.outputs.current_branch }}:latest
           tags: |
             type=ref,event=branch
             type=ref,event=pr
