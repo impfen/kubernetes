@@ -1,5 +1,4 @@
 name: kiebitz
-test: true
 meter:
   name: meter
   type: redis
@@ -27,17 +26,17 @@ storage:
     #  key_file: "/$DIR/certs/storage-1.key"
   jsonrpc:
     cors:
-      allowed_hosts: ["http://localhost:8080"]
-      allowed_headers: ["*"]
-      allowed_methods: ["POST"]
+      allowed_hosts: [ "http://localhost:8080" ]
+      allowed_headers: [ "*" ]
+      allowed_methods: [ "POST" ]
   rest:
     cors:
-      allowed_hosts: ["http://localhost:8080"]
-      allowed_headers: ["*"]
-      allowed_methods: ["GET", "POST", "PUT", "DELETE"]
+      allowed_hosts: [ "http://localhost:8080" ]
+      allowed_headers: [ "*" ]
+      allowed_methods: [ "GET", "POST", "PUT", "DELETE" ]
 admin:
   signing:
-    keys: []
+    keys: [ ]
   client:
     appointments_endpoint: http://localhost:22222/jsonrpc
     storage_endpoint: http://localhost:11111/jsonrpc
@@ -57,7 +56,7 @@ appointments:
     anon_aggregated_max_time_window: 7
     # the maximum duration for the time window for provider requests in days
     provider_max_time_window: 14
-  keys: []
+  keys: [ ]
   http:
     bind_address: localhost:22222
     #tls:
@@ -66,11 +65,11 @@ appointments:
     #  key_file: "/$DIR/certs/storage-1.key"
   jsonrpc:
     cors:
-      allowed_hosts: ["http://localhost:8080"]
-      allowed_headers: ["*"]
-      allowed_methods: ["POST"]
+      allowed_hosts: [ "http://localhost:8080" ]
+      allowed_headers: [ "*" ]
+      allowed_methods: [ "POST" ]
   rest:
     cors:
-      allowed_hosts: ["http://localhost:8080"]
-      allowed_headers: ["*"]
-      allowed_methods: ["GET", "POST", "PUT", "DELETE"]
+      allowed_hosts: [ "http://localhost:8080" ]
+      allowed_headers: [ "*" ]
+      allowed_methods: [ "GET", "POST", "PUT", "DELETE" ]
