@@ -58,9 +58,9 @@ jobs:
       - name: Retag services-inoeg
         uses: tinact/docker.image-retag@master
         with:
-          image_name: services-inoeg
+          image_name: kiebitz-oss/services-inoeg
           image_old_tag: main
           image_new_tag: latest
-          registry: ghcr.io/kiebitz-oss
+          registry: ghcr.io
           registry_username: ${{ github.actor }}
           registry_password: ${{ secrets.GITHUB_TOKEN }}
