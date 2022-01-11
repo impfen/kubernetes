@@ -41,17 +41,26 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ${{ env.REGISTRY }}/apps-inoeg-main
+          images: ${{ env.REGISTRY }}/kiebitz-oss/apps-inoeg-main
           tags: |
             type=ref,event=branch
             type=ref,event=pr
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=sha
-      - name: Build and push Docker image
+      - name: Build and push Docker apps-inoeg-main
         uses: docker/build-push-action@v2
         with:
           context: container/apps-inoeg
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ env.REGISTRY }}/kiebitz-oss/apps-inoeg-main:latest
           labels: ${{ steps.meta.outputs.labels }}
+      - name: Retag services-inoeg
+        uses: tinact/docker.image-retag@master
+        with:
+          image_name: services-inoeg
+          image_old_tag: main
+          image_new_tag: latest
+          registry: ghcr.io/kiebitz-oss
+          registry_username: ${{ github.actor }}
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
