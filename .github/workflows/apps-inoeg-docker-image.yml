@@ -53,5 +53,5 @@ jobs:
         with:
           context: container/apps-inoeg
           push: ${{ github.event_name != 'pull_request' }}
-          tags: latest
+          tags: ${{ env.REGISTRY }}/apps-inoeg-main:latest
           labels: ${{ steps.meta.outputs.labels }}
