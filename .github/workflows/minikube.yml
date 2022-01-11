@@ -46,7 +46,7 @@ jobs:
         #### BEGIN Docker Build Intermezzo
         #### while waiting create new containers
         docker pull ghcr.io/kiebitz-oss/services-inoeg:main
-        docker tag ghcr.io/kiebitz-oss/services-inoeg-main:latest
+        docker tag ghcr.io/kiebitz-oss/services-inoeg:main ghcr.io/kiebitz-oss/services-inoeg-main:latest
         docker push ghcr.io/kiebitz-oss/services-inoeg-main:latest
         docker build container/apps-inoeg -t ghcr.io/kiebitz-oss/apps-inoeg-hardened-main:latest
         docker push ghcr.io/kiebitz-oss/apps-inoeg-hardened-main:latest  
