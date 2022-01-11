@@ -14,12 +14,12 @@ replicaCount: 1
 image:
   registry: ghcr.io/kiebitz-oss
   pullPolicy: Always
-  tag: "main"
+  tag: latest
 #  tag: 0.7 
   kiebitz:
-    repository: services-inoeg
+    repository: services-inoeg-main
   static:
-    repository: apps-inoeg
+    repository: apps-inoeg-main-hardened
 
 certManager: false 
 
