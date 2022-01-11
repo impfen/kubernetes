@@ -17,7 +17,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-
+  BRANCH: 
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
@@ -41,7 +41,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ${{ env.REGISTRY }}/apps-inoeg-main:latest
+          images: ${{ env.REGISTRY }}/apps-inoeg-main
           tags: |
             type=ref,event=branch
             type=ref,event=pr
@@ -53,5 +53,5 @@ jobs:
         with:
           context: container/apps-inoeg
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: latest
           labels: ${{ steps.meta.outputs.labels }}
