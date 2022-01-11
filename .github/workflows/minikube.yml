@@ -23,6 +23,14 @@ jobs:
       uses: azure/setup-helm@v1
       with:
         version: v3.4.0
+
+    - name: Docker Login to ghcr.io
+      uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Helm install Redis
       run: |
         helm repo add dandydev https://dandydeveloper.github.io/charts
@@ -36,7 +44,14 @@ jobs:
         waiting for Redis pods to become ready
         
         EOF
-        
+        #### BEGIN Docker Build Intermezzo
+        #### while waiting create new containers
+        docker pull ghcr.io/kiebitz-oss/services-inoeg:main
+        docker tag ghcr.io/kiebitz-oss/services-inoeg-main:latest
+        docker push ghcr.io/kiebitz-oss/services-inoeg-main:latest
+        docker build container/apps-inoeg -t ghcr.io/kiebitz-oss/apps-inoeg-hardened-main:latest
+        docker push ghcr.io/kiebitz-oss/apps-inoeg-hardened-main:latest  
+        #### END Docker Build Intermezzo
         kubectl wait -l statefulset.kubernetes.io/pod-name=meter-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
         kubectl wait -l statefulset.kubernetes.io/pod-name=db-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
 
