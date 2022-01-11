@@ -41,7 +41,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ${{ env.REGISTRY }}/apps-inoeg-${{ steps.branch-name.outputs.current_branch }}:latest
+          images: ${{ env.REGISTRY }}/apps-inoeg-main:latest
           tags: |
             type=ref,event=branch
             type=ref,event=pr
