@@ -1,0 +1,16 @@
+{
+    "storage": {
+        "keys": [
+            {
+                "name": "root",
+                "type": "ecdsa",
+                "format": "spki-pkcs8",
+                "params": {
+                    "curve": "p-256"
+                },
+                "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEkJXQcq+YnVI17R0ezu2cEpSeFNRCz3dYKNpRItYiYqyFcX7+qCCD4ATRDLhhUXe98lgT+0A5q/Ahr6nMSjDAaw==",
+                "purposes": ["sign", "verify"]
+            }
+        ]
+    }
+}
