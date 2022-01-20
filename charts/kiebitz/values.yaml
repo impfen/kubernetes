@@ -12,7 +12,7 @@ replicaCount: 1
 #   
 # only for testing set pullPolicy to "Always" and tag to "latest" 
 image:
-  registry: ghcr.io/kiebitz-oss
+  registry: ghcr.io/impfen
   pullPolicy: Always
   tag: latest
 #  tag: 0.7 

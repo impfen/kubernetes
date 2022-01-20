@@ -1,4 +1,4 @@
-FROM  ghcr.io/kiebitz-oss/apps-inoeg:main as origin
+FROM  ghcr.io/impfen/apps-inoeg:main as origin
 
 ADD  https://raw.githubusercontent.com/thomasfricke/container-hardening/main/harden /harden
 
