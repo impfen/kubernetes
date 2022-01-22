@@ -21,7 +21,7 @@ image:
   static:
     repository: apps-inoeg
 
-certManager: true
+certManager: false
 
 imagePullSecrets: []
 kiebitz:
