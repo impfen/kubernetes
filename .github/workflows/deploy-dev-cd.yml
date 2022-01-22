@@ -9,6 +9,7 @@ jobs:
       KUBE_CONFIG: ${{ secrets.KUBECONFIG_PLUSCLOUD }}
       KUBECONFIG: kubeconfig.yml
     steps:
+    - uses: actions/checkout@v2
     - shell: bash
       run: |
         echo "$KUBE_CONFIG" | base64 -d > kubeconfig.yml
