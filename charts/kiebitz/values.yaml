@@ -17,11 +17,11 @@ image:
   tag: latest
 #  tag: 0.7 
   kiebitz:
-    repository: services-inoeg-main
+    repository: services-inoeg
   static:
-    repository: apps-inoeg-main-hardened
+    repository: apps-inoeg
 
-certManager: false 
+certManager: true
 
 imagePullSecrets: []
 kiebitz:
@@ -31,27 +31,27 @@ kiebitz:
       type: ClusterIP
       port: 80
       ingress: true # enable ingress for this service
-      hostname: kiebitz.example.com # ingress hostname
-      tls: false # enable tls and letsencrypt
+      hostname: dev-cd.impfterm.in # ingress hostname
+      tls: true # enable tls and letsencrypt
     storage:
       type: ClusterIP
       port: 11111
       ingress: true
-      hostname: storage.example.com
+      hostname: dev-cd.impfterm.in
       tls: true
     appointments:
       type: ClusterIP
       port: 22222
       ingress: true
-      hostname: appointments.example.com
-      tls: false
+      hostname: dev-cd.impftermin
+      tls: true
 static:
   nameOverride: "static"
   service:
     type: ClusterIP
     port: 80
     ingress: true
-    hostname: static.example.com
+    hostname: dev-cd.impfterm.in
     tls: true
 
 
