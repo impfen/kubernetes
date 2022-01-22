@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       KUBE_CONFIG: ${{ secrets.KUBECONFIG_PLUSCLOUD }}
-      KUBECONFIG: kubeconfig.yml
+      KUBECONFIG: ~/kubeconfig.yml
     steps:
     - uses: actions/checkout@v2
     - shell: bash
