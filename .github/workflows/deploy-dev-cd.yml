@@ -12,8 +12,8 @@ jobs:
       run: |
         mkdir .kube
         echo "$KUBE_CONFIG" > .kube/config
-    - uses: actions/checkout@v2
-    - name: Kuberentes (k8s) cli - kubectl
-      uses: actions-hub/kubectl@v1.21.2
+#    - uses: actions/checkout@v2
+#    - name: Kuberentes (k8s) cli - kubectl
+#      uses: actions-hub/kubectl@v1.21.2
     - name: Show all pods
       run: kubectl get pods -A
