@@ -6,10 +6,12 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     env:
-      KUBECONFIG: ${{ secrets.KUBECONFIG_PLUSCLOUD }}
+      KUBE_CONFIG: ${{ secrets.KUBECONFIG_PLUSCLOUD }}
+      KUBECONFIG: kubeconfig.yml
     steps:
     - shell: bash
       run: |
+        echo "$KUBE_CONFIG" | base64 -d > kubeconfig.yml
 #        sudo apt-get update && sudo apt-get install -y apt-transport-https
 #        curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 #        echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
@@ -18,5 +20,6 @@ jobs:
 #    - uses: actions/checkout@v2
 #    - name: Kuberentes (k8s) cli - kubectl
 #      uses: actions-hub/kubectl@v1.21.2
+    - run: kubectl version --client
     - name: Show all pods
       run: kubectl get pods -A
