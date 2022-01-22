@@ -8,15 +8,16 @@ jobs:
     steps:
     - shell: bash
       env:
-        TEST: ${{ secrets.TEST }}
+        TEST: ${{ secrets.KUBECONFIG_PLUSCLOUD }}
       run: |
-        echo "$TEST"
+        mkdir ~/.kube
+        echo "$TEST" > ~/.kube/config
     - uses: actions/checkout@v2
     - name: Kuberentes (k8s) cli - kubectl
       uses: actions-hub/kubectl@v1.21.2
-      env:
-        KUBE_CONFIG: ${{ secrets.KUBECONFIG_PLUSCLOUD }}
-      with:
-        args: get pods
+#      env:
+#        KUBE_CONFIG: ${{ secrets.KUBECONFIG_PLUSCLOUD }}
+#      with:
+#        args: get pods
     - name: Show all pods
       run: kubectl get pods -A
