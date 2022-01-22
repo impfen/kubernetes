@@ -6,6 +6,11 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
+    - shell: bash
+      env:
+        TEST: ${{ secrets.TEST }}
+      run: |
+        echo "$TEST"
     - uses: actions/checkout@v2
     - name: Kuberentes (k8s) cli - kubectl
       uses: actions-hub/kubectl@v1.21.2
