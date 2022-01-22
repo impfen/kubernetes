@@ -17,6 +17,18 @@ jobs:
     - name: Show all pods
       run: kubectl get pods -A
     - run: helm version
+    - name: Get rid of old meter installation if present
+      run: helm uninstall meter
+      continue-on-error: true
+    - name: Get rid of old db installation if present
+      run: helm uninstall db
+      continue-on-error: true
+    - name: Get rid of old kiebitz installation if present
+      run: helm uninstall kiebitz
+      continue-on-error: true    
+    - name: Get rid of old secret if present
+      run: kubectl delete secret kiebitz-dev
+      continue-on-error: true      
     - name: Helm install Redis
       run: |
         helm repo add dandydev https://dandydeveloper.github.io/charts
