@@ -27,12 +27,6 @@ imagePullSecrets: []
 kiebitz:
   nameOverride: "kiebitz"
   service:
-    kiebitz:
-      type: ClusterIP
-      port: 80
-      ingress: true # enable ingress for this service
-      hostname: dev-cd.impfterm.in # ingress hostname
-      tls: true # enable tls and letsencrypt
     storage:
       type: ClusterIP
       port: 11111
