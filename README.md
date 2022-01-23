@@ -40,5 +40,5 @@
         ├── 001_default.yml
         ├── 002_admin.json
         ├── 003_appt.json
-        └── 004_notification.json
+        └── 004_storage.json
 ```

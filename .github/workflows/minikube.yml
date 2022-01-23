@@ -69,7 +69,7 @@ jobs:
              --from-file=001_default.yml \
              --from-file=002_admin.json \
              --from-file=003_appt.json \
-             --from-file=004_notification.json
+             --from-file=004_storage.json
         )
         
         

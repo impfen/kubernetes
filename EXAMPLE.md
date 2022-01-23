@@ -48,7 +48,7 @@ tree | cat
             ├── 001_default.yml
             ├── 002_admin.json
             ├── 003_appt.json
-            └── 004_notification.json
+            └── 004_storage.json
     
     9 directories, 19 files
 
@@ -403,7 +403,7 @@ As the config contains security token, it is nessecary to create it as token.
 ```bash
 (
 cd settings/dev
-kubectl create secret generic kiebitz-dev --from-file=001_default.yml --from-file=002_admin.json --from-file=003_appt.json --from-file=004_notification.json
+kubectl create secret generic kiebitz-dev --from-file=001_default.yml --from-file=002_admin.json --from-file=003_appt.json --from-file=004_storage.json
 )
 ```
 
