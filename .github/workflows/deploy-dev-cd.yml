@@ -24,7 +24,7 @@ jobs:
       run: helm uninstall db
       continue-on-error: true
     - name: Get rid of old kiebitz installation if present
-      run: helm uninstall kiebitz
+      run: helm uninstall kiebitz-plus
       continue-on-error: true    
     - name: Get rid of old secret if present
       run: kubectl delete secret kiebitz-dev
