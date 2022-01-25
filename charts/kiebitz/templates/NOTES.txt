@@ -5,16 +5,16 @@
   http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host.host }}{{ .path }}
   {{- end }}
 {{- end }}
-{{- else if contains "NodePort" .Values.kiebitz.service.kiebitz.type }}
-  export KIEBITZ_NODE_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ include "kiebitz.fullname" . }})
+{{- else if contains "NodePort" .Values.static.service.type }}
+  export KIEBITZ_NODE_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ include "static.fullname" . }})
   export KIEBITZ_NODE_IP=$(kubectl get nodes --namespace {{ .Release.Namespace }} -o jsonpath="{.items[0].status.addresses[0].address}")
   echo http://$KIEBITZ_NODE_IP:$KIEBITZ_NODE_PORT
-{{- else if contains "LoadBalancer" .Values.kiebitz.service.kiebitz.type }}
+{{- else if contains "LoadBalancer" .Values.static.service.type }}
      NOTE: It may take a few minutes for the LoadBalancer IP to be available.
-           You can watch the status of by running 'kubectl get --namespace {{ .Release.Namespace }} svc -w {{ include "kiebitz.fullname" . }}'
-  export KIEBITZ_SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ include "kiebitz.fullname" . }} --template "{{"{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}"}}")
+           You can watch the status of by running 'kubectl get --namespace {{ .Release.Namespace }} svc -w {{ include "static.fullname" . }}'
+  export KIEBITZ_SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ include "static.fullname" . }} --template "{{"{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}"}}")
   echo http://$KIEBITZ_SERVICE_IP:{{ .Values.kiebitz.service.kiebitz.port }}
-{{- else if contains "ClusterIP" .Values.kiebitz.service.kiebitz.type }}
+{{- else if contains "ClusterIP" .Values.static.service.type }}
   export KIEBITZ_POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "kiebitz.name" . }},app.kubernetes.io/instance={{ .Release.Name }}" -o jsonpath="{.items[0].metadata.name}")
   export KIEBITZ_CONTAINER_PORT=$(kubectl get pod --namespace {{ .Release.Namespace }} $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
   echo "Visit http://127.0.0.1:8080 to use your application"
