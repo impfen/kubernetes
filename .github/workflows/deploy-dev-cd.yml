@@ -67,7 +67,7 @@ jobs:
         sleep 10
         kubectl get all
         kubectl describe pods
-        kubectl logs -l "app.kubernetes.io/name=kiebitz,app.kubernetes.io/instance=kiebitz"
-        kubectl wait --for=condition=available --timeout=60s deployment/kiebitz-static
-        kubectl wait --for=condition=available --timeout=60s deployment/kiebitz-kiebitz
+        kubectl logs -l "app.kubernetes.io/name=kiebitz,app.kubernetes.io/instance=kiebitz-plus"
+        kubectl wait --for=condition=available --timeout=60s deployment/kiebitz-plus-static
+        kubectl wait --for=condition=available --timeout=60s deployment/kiebitz-plus-kiebitz
         kubectl get all
