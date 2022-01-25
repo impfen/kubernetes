@@ -57,7 +57,7 @@ jobs:
         )
         
         
-        helm install kiebitz --values=charts/kiebitz/values-plus.yaml ./charts/kiebitz
+        helm install kiebitz-plus --values=charts/kiebitz/values-plus.yaml ./charts/kiebitz
         
         cat <<EOF
         
