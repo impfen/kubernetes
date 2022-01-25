@@ -48,7 +48,7 @@ tree | cat
             ├── 001_default.yml
             ├── 002_admin.json
             ├── 003_appt.json
-            └── 004_notification.json
+            └── 004_storage.json
     
     9 directories, 19 files
 
@@ -209,7 +209,7 @@ cat container/kiebitz/Dockerfile
 
     FROM golang:1.16 as builder 
     
-    RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go install -v github.com/kiebitz-oss/services/cmd/kiebitz@latest
+    RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go install -v github.com/impfen/services/cmd/kiebitz@latest
     
     FROM scratch
     
@@ -233,9 +233,9 @@ docker build -t $KIEBITZ container/kiebitz
     Sending build context to Docker daemon  2.048kB
     Step 1/8 : FROM golang:1.16 as builder
      ---> 5b838b7289de
-    Step 2/8 : RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go install -v github.com/kiebitz-oss/services/cmd/kiebitz@latest
+    Step 2/8 : RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go install -v github.com/impfen/services/cmd/kiebitz@latest
      ---> Running in 76419449b17e
-    go: downloading github.com/kiebitz-oss/services v0.0.0-20211126211101-fe405d3f0767
+    go: downloading github.com/impfen/services v0.0.0-20211126211101-fe405d3f0767
     go: downloading github.com/go-redis/redis v6.15.9+incompatible
     go: downloading github.com/kiprotect/go-helpers v0.0.0-20210706144641-b74c3f0f016d
     go: downloading github.com/urfave/cli v1.22.5
@@ -309,7 +309,7 @@ docker build -t $KIEBITZ container/kiebitz
     vendor/golang.org/x/net/http/httpguts
     mime/multipart
     github.com/kiprotect/go-helpers/settings
-    github.com/kiebitz-oss/services/crypto
+    github.com/impfen/services/crypto
     crypto/tls
     google.golang.org/protobuf/internal/encoding/tag
     google.golang.org/protobuf/internal/impl
@@ -334,20 +334,20 @@ docker build -t $KIEBITZ container/kiebitz
     github.com/prometheus/common/expfmt
     github.com/prometheus/client_golang/prometheus
     github.com/prometheus/client_golang/prometheus/promhttp
-    github.com/kiebitz-oss/services/metrics
-    github.com/kiebitz-oss/services
-    github.com/kiebitz-oss/services/tls
-    github.com/kiebitz-oss/services/databases
-    github.com/kiebitz-oss/services/http
-    github.com/kiebitz-oss/services/meters
-    github.com/kiebitz-oss/services/forms
-    github.com/kiebitz-oss/services/jsonrpc
-    github.com/kiebitz-oss/services/servers
-    github.com/kiebitz-oss/services/helpers
-    github.com/kiebitz-oss/services/cmd/helpers
-    github.com/kiebitz-oss/services/cmd
-    github.com/kiebitz-oss/services/definitions
-    github.com/kiebitz-oss/services/cmd/kiebitz
+    github.com/impfen/services/metrics
+    github.com/impfen/services
+    github.com/impfen/services/tls
+    github.com/impfen/services/databases
+    github.com/impfen/services/http
+    github.com/impfen/services/meters
+    github.com/impfen/services/forms
+    github.com/impfen/services/jsonrpc
+    github.com/impfen/services/servers
+    github.com/impfen/services/helpers
+    github.com/impfen/services/cmd/helpers
+    github.com/impfen/services/cmd
+    github.com/impfen/services/definitions
+    github.com/impfen/services/cmd/kiebitz
     Removing intermediate container 76419449b17e
      ---> b68b6fac8ae6
     Step 3/8 : FROM scratch
@@ -403,7 +403,7 @@ As the config contains security token, it is nessecary to create it as token.
 ```bash
 (
 cd settings/dev
-kubectl create secret generic kiebitz-dev --from-file=001_default.yml --from-file=002_admin.json --from-file=003_appt.json --from-file=004_notification.json
+kubectl create secret generic kiebitz-dev --from-file=001_default.yml --from-file=002_admin.json --from-file=003_appt.json --from-file=004_storage.json
 )
 ```
 
