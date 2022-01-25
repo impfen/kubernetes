@@ -88,8 +88,9 @@ securityContext:
 # generic ingress and letsencrypt settings for all services
 ingress:
   className: "nginx"
-  certEmail: "hostmaster@example.com"
-  certServer: "https://acme-staging-v02.api.letsencrypt.org/directory" # change to "https://acme-v02.api.letsencrypt.org/directory" for produktion
+  certEmail: "impfen@inoeg.de"
+  #  certServer: "https://acme-staging-v02.api.letsencrypt.org/directory" 
+  certServer: "https://acme-v02.api.letsencrypt.org/directory" 
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
