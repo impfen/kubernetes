@@ -48,11 +48,11 @@ jobs:
 
         echo beginning intermezzo create containers
 
-        docker pull ghcr.io/kiebitz-oss/services-inoeg:main
-        docker tag ghcr.io/kiebitz-oss/services-inoeg:main ghcr.io/kiebitz-oss/services-inoeg-main:latest
-        docker push ghcr.io/kiebitz-oss/services-inoeg-main:latest
-        docker build container/apps-inoeg -t ghcr.io/kiebitz-oss/apps-inoeg-main-hardened:latest
-        docker push ghcr.io/kiebitz-oss/apps-inoeg-main-hardened:latest  
+        docker pull ghcr.io/impfen/services-inoeg:main
+        docker tag ghcr.io/impfen/services-inoeg:main ghcr.io/impfen/services-inoeg-main:latest
+        docker push ghcr.io/impfen/services-inoeg-main:latest
+        docker build container/apps-inoeg -t ghcr.io/impfen/apps-inoeg-main-hardened:latest
+        docker push ghcr.io/impfen/apps-inoeg-main-hardened:latest  
 
         echo end intermezzo create containers
 
@@ -69,7 +69,7 @@ jobs:
              --from-file=001_default.yml \
              --from-file=002_admin.json \
              --from-file=003_appt.json \
-             --from-file=004_notification.json
+             --from-file=004_storage.json
         )
         
         

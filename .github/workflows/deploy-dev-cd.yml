@@ -1,0 +1,73 @@
+name: Deployment to dev-cd.impfterm.in
+on:
+  push:
+  
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    env:
+      KUBE_CONFIG: ${{ secrets.KUBECONFIG_PLUSCLOUD }}
+      KUBECONFIG: /home/runner/work/kubernetes/kubernetes/kubeconfig.yml
+    steps:
+    - uses: actions/checkout@v2
+    - shell: bash
+      run: |
+        echo "$KUBE_CONFIG" | base64 -d > kubeconfig.yml
+    - run: kubectl version --client
+    - name: Show all pods
+      run: kubectl get pods -A
+    - run: helm version
+    - name: Get rid of old meter installation if present
+      run: helm uninstall meter
+      continue-on-error: true
+    - name: Get rid of old db installation if present
+      run: helm uninstall db
+      continue-on-error: true
+    - name: Get rid of old kiebitz installation if present
+      run: helm uninstall kiebitz
+      continue-on-error: true    
+    - name: Get rid of old secret if present
+      run: kubectl delete secret kiebitz-dev
+      continue-on-error: true      
+    - name: Helm install Redis
+      run: |
+        helm repo add dandydev https://dandydeveloper.github.io/charts
+        helm install meter --set replicas=1 dandydev/redis-ha
+        helm install db --set replicas=1 dandydev/redis-ha
+        
+        helm ls
+        
+        cat <<EOF
+        
+        waiting for Redis pods to become ready
+        
+        EOF
+        kubectl wait -l statefulset.kubernetes.io/pod-name=meter-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
+        kubectl wait -l statefulset.kubernetes.io/pod-name=db-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
+    - name: Helm install Application
+      run: |
+        echo Install secret
+        (
+          cd settings/dev
+          kubectl create secret generic kiebitz-dev \
+             --from-file=001_default.yml \
+             --from-file=002_admin.json \
+             --from-file=003_appt.json \
+             --from-file=004_storage.json
+        )
+        
+        
+        helm install kiebitz ./charts/kiebitz
+        
+        cat <<EOF
+        
+        waiting for deployments getting available
+        
+        EOF
+        sleep 10
+        kubectl get all
+        kubectl describe pods
+        kubectl logs -l "app.kubernetes.io/name=kiebitz,app.kubernetes.io/instance=kiebitz"
+        kubectl wait --for=condition=available --timeout=60s deployment/kiebitz-static
+        kubectl wait --for=condition=available --timeout=60s deployment/kiebitz-kiebitz
+        kubectl get all
