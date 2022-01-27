@@ -17,9 +17,9 @@ image:
   tag: latest
 #  tag: 0.7 
   kiebitz:
-    repository: services-inoeg-main
+    repository: services-inoeg
   static:
-    repository: apps-inoeg-main-hardened
+    repository: apps-inoeg
 
 certManager: true
 
