@@ -1,7 +1,11 @@
 name: Deployment to dev-cd.impfterm.in
 on:
-  push:
-  
+  workflow_call:
+
+concurrency:
+  group: deployment
+  cancel-in-progress: true
+
 jobs:
   job1:
     runs-on: ubuntu-latest
