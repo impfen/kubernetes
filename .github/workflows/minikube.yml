@@ -33,7 +33,6 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-
     - name: Helm install Redis
       run: |
         helm repo add dandydev https://dandydeveloper.github.io/charts
@@ -47,21 +46,7 @@ jobs:
         waiting for Redis pods to become ready
         
         EOF
-        #### BEGIN Docker Build Intermezzo
-        #### while waiting create new containers
 
-# leave that to the originating pipelines
-#        echo beginning intermezzo create containers
-#
-#        docker pull ghcr.io/impfen/services-inoeg:main
-#        docker tag ghcr.io/impfen/services-inoeg:main ghcr.io/impfen/services-inoeg-main:latest
-#        docker push ghcr.io/impfen/services-inoeg-main:latest
-#        docker build container/apps-inoeg -t ghcr.io/impfen/apps-inoeg-main-hardened:latest
-#        docker push ghcr.io/impfen/apps-inoeg-main-hardened:latest  
-#
-#        echo end intermezzo create containers
-
-        #### END Docker Build Intermezzo
         kubectl wait -l statefulset.kubernetes.io/pod-name=meter-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
         kubectl wait -l statefulset.kubernetes.io/pod-name=db-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
 
