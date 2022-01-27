@@ -1,13 +1,14 @@
 name: Deployment to dev-cd.impfterm.in
 on:
   workflow_call:
+  workflow_dispatch:
 
 concurrency:
   group: deployment
   cancel-in-progress: true
 
 jobs:
-  job1:
+  run-tests:
     runs-on: ubuntu-latest
     env:
       KUBE_CONFIG: ${{ secrets.KUBECONFIG_PLUSCLOUD }}
