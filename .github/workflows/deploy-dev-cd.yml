@@ -2,6 +2,8 @@ name: Deployment to dev-cd.impfterm.in
 on:
   workflow_call:
   workflow_dispatch:
+  repository_dispatch:
+    types: ["raw-deployment"]
 
 concurrency:
   group: deployment
