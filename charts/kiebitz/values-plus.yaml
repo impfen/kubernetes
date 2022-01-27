@@ -14,7 +14,7 @@ replicaCount: 1
 image:
   registry: ghcr.io/impfen
   pullPolicy: Always
-  tag: latest
+  tag: main
 #  tag: 0.7 
   kiebitz:
     repository: services-inoeg
