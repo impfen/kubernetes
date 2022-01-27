@@ -7,6 +7,7 @@ on:
 #    branches: [ main ]
   repository_dispatch:
     types: ["deployment"]
+  workflow_dispatch:
 
 jobs:
   job1:
