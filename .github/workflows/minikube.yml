@@ -2,8 +2,9 @@ name: Minikube Helm Deployment
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+# re-enable once we stop pull requests from triggering deployments
+#  pull_request:
+#    branches: [ main ]
   repository_dispatch:
     types: ["deployment"]
 
@@ -95,5 +96,5 @@ jobs:
     - name: Helm tests
       run: |
         helm test kiebitz-minikube --debug --logs
-    - name: We're green, trigger deployment (fixme: don't deploy on pull request)
+    - name: We're green, trigger deployment
       uses: ./.github/actions/deploy-dev-cd.yml
