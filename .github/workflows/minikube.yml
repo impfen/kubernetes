@@ -97,4 +97,4 @@ jobs:
       run: |
         helm test kiebitz-minikube --debug --logs
     - name: We're green, trigger deployment
-      uses: ./.github/actions/deploy-dev-cd.yml
+      uses: ./.github/workflows/deploy-dev-cd.yml
