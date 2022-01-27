@@ -4,6 +4,8 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  repository_dispatch:
+    types: ["deployment"]
 
 jobs:
   job1:
@@ -93,3 +95,5 @@ jobs:
     - name: Helm tests
       run: |
         helm test kiebitz-minikube --debug --logs
+    - name: We're green, trigger deployment (fixme: don't deploy on pull request)
+      uses: ./.github/actions/deploy-dev-cd.yml
