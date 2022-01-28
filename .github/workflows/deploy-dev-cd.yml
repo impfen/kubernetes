@@ -25,13 +25,20 @@ jobs:
       run: kubectl get pods -A
     - run: helm version
     - name: Get rid of old meter installation if present
-      run: helm uninstall meter
+      run: | 
+        helm uninstall meter
+        kubectl wait -l statefulset.kubernetes.io/pod-name=meter-redis-ha-server-0 --for=delete pod --timeout=-1s
       continue-on-error: true
     - name: Get rid of old db installation if present
-      run: helm uninstall db
+      run: |
+        helm uninstall db
+        kubectl wait -l statefulset.kubernetes.io/pod-name=db-redis-ha-server-0 --for=delete pod --timeout=-1s
       continue-on-error: true
     - name: Get rid of old kiebitz installation if present
-      run: helm uninstall kiebitz-plus
+      run: | 
+        helm uninstall kiebitz-plus
+        kubectl wait --for=delete --timeout=60s deployment/kiebitz-plus-static
+        kubectl wait --for=delete --timeout=60s deployment/kiebitz-plus-kiebitz
       continue-on-error: true    
     - name: Get rid of old secret if present
       run: kubectl delete secret kiebitz-dev
