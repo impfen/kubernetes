@@ -1,20 +1,20 @@
 {{- $fullName := include "kiebitz.fullname" . }}
 {{- $labels := include "kiebitz.labels" . }}
 {{- $selectorLabels := include "kiebitz.selectorLabels" . }}
-{{- range $service, $settings := .Values.kiebitz.service }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ $fullName }}-{{ $service }}
+  name: {{ $fullName }}
   labels:
     {{- $labels | nindent 4 }}
 spec:
   type: {{ $settings.type }}
   ports:
+{{- range $service, $settings := .Values.kiebitz.service }}
     - port: {{ $settings.port }}
       targetPort: http
       protocol: TCP
+{{- end }}
   selector:
     {{- $selectorLabels | nindent 4 }}
 ---
-{{- end }}
