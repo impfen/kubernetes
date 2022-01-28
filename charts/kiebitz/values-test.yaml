@@ -44,11 +44,27 @@ kiebitz:
 static:
   nameOverride: "static"
   service:
-    type: ClusterIP
-    port: 80
-    ingress: true
-    hostname: test.impfterm.in
-    tls: true
+    static:
+      type: ClusterIP
+      port: 80
+      ingress: true
+      hostname: test.impfterm.in
+      tls: true
+    mediator:
+      type: ClusterIP
+      port: 80
+      ingress: true
+      hostname: mediator.test.impfterm.in
+      path: /mediator
+      tls: true
+    provider:
+      type: ClusterIP
+      port: 80
+      ingress: true
+      hostname: provider.test.impfterm.in
+      path: /provider
+      tls: true
+  
 
 
 

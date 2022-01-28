@@ -42,11 +42,12 @@ kiebitz:
 static:
   nameOverride: "static"
   service:
-    type: ClusterIP
-    port: 80
-    ingress: true
-    hostname: dev-cd.impfterm.in
-    tls: true
+    static:
+      type: ClusterIP
+      port: 80
+      ingress: true
+      hostname: dev-cd.impfterm.in
+      tls: true
 
 
 

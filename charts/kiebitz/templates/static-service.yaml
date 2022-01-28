@@ -1,15 +1,20 @@
+{{- $fullName := include "static.fullname" . }}
+{{- $labels := include "static.labels" . }}
+{{- $selectorLabels := include "static.selectorLabels" . }}
+{{- range $service, $settings := .Values.static.service }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "static.fullname" . }}
+  name: {{ $fullName }}-{{ $service }}
   labels:
-    {{- include "static.labels" . | nindent 4 }}
+    {{- $labels | nindent 4 }}
 spec:
-  type: {{ .Values.static.service.type }}
+  type: {{ $settings.type }}
   ports:
-    - port: {{ .Values.static.service.port }}
+    - port: {{ $settings.port }}
       targetPort: 3000
       protocol: TCP
       name: http
   selector:
-    {{- include "static.selectorLabels" . | nindent 4 }}
+    {{- $selectorLabels | nindent 4 }}
+{{- end }}

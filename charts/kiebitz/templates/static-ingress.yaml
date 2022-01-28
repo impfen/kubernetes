@@ -2,7 +2,7 @@
 {{- $labels := include "static.labels" . }}
 {{- $values := .Values }}
 {{- $capabilities := .Capabilities }}
-{{- $settings := .Values.static.service }}
+{{- range $service, $settings := .Values.kiebitz.service }}
 {{- if $settings.ingress }}
 {{- if and $values.ingress.className (not (semverCompare ">=1.18-0" $capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey $values.ingress.annotations "kubernetes.io/ingress.class") }}
@@ -18,7 +18,7 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: {{ $fullName }}-{{ $service }}
   labels:
     {{- $labels | nindent 4 }}
   {{- with $values.ingress.annotations }}
@@ -39,7 +39,7 @@ spec:
     - host: {{ $settings.hostname }}
       http:
         paths:
-          - path: /
+           - path: {{- if $settings.path }} {{ $settings.path }} {{- else }} / {{- end }}
             {{- if (semverCompare ">=1.18-0" $capabilities.KubeVersion.GitVersion) }}
             pathType: Prefix
             {{- end }}
@@ -53,4 +53,5 @@ spec:
               serviceName: {{ $fullName }}
               servicePort: {{ $settings.port }}
               {{- end }}
+{{- end }}
 {{- end }}
