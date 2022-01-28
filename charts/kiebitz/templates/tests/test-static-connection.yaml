@@ -13,5 +13,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['-O', '-', '-q', "{{ include "static.fullname" . }}" ]
+      args: ['-O', '-', '-q', "{{ include "static.fullname" . }}"-static ]
   restartPolicy: Never
