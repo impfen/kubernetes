@@ -32,19 +32,19 @@ kiebitz:
       port: 80
       ingress: true # enable ingress for this service
       hostname:  dev-cd.impfterm.in # ingress hostname
-      tls: false # enable tls and letsencrypt
+      tls: true # enable tls and letsencrypt
     storage:
       type: ClusterIP
       port: 11111
       ingress: true
-      hostname: storage.example.com
+      hostname: dev-cd.impfterm.in
       tls: true
     appointments:
       type: ClusterIP
       port: 22222
       ingress: true
-      hostname: appointments.example.com
-      tls: false
+      hostname: dev-cd.impfterm.in
+      tls: true
 static:
   nameOverride: "static"
   service:
