@@ -2,7 +2,7 @@
 {{- $labels := include "static.labels" . }}
 {{- $values := .Values }}
 {{- $capabilities := .Capabilities }}
-{{- range $service, $settings := .Values.kiebitz.service }}
+{{- range $service, $settings := .Values.static.service }}
 {{- if $settings.ingress }}
 {{- if and $values.ingress.className (not (semverCompare ">=1.18-0" $capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey $values.ingress.annotations "kubernetes.io/ingress.class") }}
