@@ -12,7 +12,7 @@ spec:
   type: {{ $settings.type }}
   ports:
     - port: {{ $settings.port }}
-      targetPort: http
+      targetPort: {{ $settings.port }}
       protocol: TCP
   selector:
     {{- $selectorLabels | nindent 4 }}
