@@ -33,24 +33,24 @@ spec:
   tls:
     - hosts:
         - {{ $settings.hostname }}
-      secretName: {{ $fullName }}-certificate
+      secretName: {{ $fullName }}-{{ $service }}-certificate
   {{- end }}
   rules:
     - host: {{ $settings.hostname }}
       http:
         paths:
-           - path: {{- if $settings.path }} {{ $settings.path }} {{- else }} / {{- end }}
+          - path: {{- if $settings.path }} {{ $settings.path }} {{- else }} / {{- end }}
             {{- if (semverCompare ">=1.18-0" $capabilities.KubeVersion.GitVersion) }}
             pathType: Prefix
             {{- end }}
             backend:
               {{- if semverCompare ">=1.19-0" $capabilities.KubeVersion.GitVersion }}
               service:
-                name: {{ $fullName }}
+                name: {{ $fullName }}-{{ $service }}
                 port:
                   number: {{ $settings.port }}
               {{- else }}
-              serviceName: {{ $fullName }}
+              serviceName: {{ $fullName }}-{{ $service }}
               servicePort: {{ $settings.port }}
               {{- end }}
 {{- end }}
