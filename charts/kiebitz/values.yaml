@@ -37,7 +37,7 @@ kiebitz:
       type: ClusterIP
       port: 22222
       ingress: true
-      hostname: dev-cd.impftermin
+      hostname: dev-cd.impfterm.in
       tls: true
 static:
   nameOverride: "static"
@@ -48,7 +48,20 @@ static:
       ingress: true
       hostname: dev-cd.impfterm.in
       tls: true
-
+    mediator:
+      type: ClusterIP
+      port: 80
+      ingress: true
+      hostname: mediator.dev-cd.impfterm.in
+      path: /mediator
+      tls: true
+    provider:
+      type: ClusterIP
+      port: 80
+      ingress: true
+      hostname: provider.dev-cd.impfterm.in
+      path: /provider
+      tls: true
 
 
 serviceAccount:
