@@ -8,7 +8,7 @@ metadata:
   labels:
     {{- $labels | nindent 4 }}
 spec:
-  type: {{ $settings.type }}
+  type: ClusterIP
   ports:
 {{- range $service, $settings := .Values.kiebitz.service }}
     - port: {{ $settings.port }}
