@@ -32,12 +32,14 @@ kiebitz:
       port: 11111
       ingress: true
       hostname: dev-cd.impfterm.in
+      path: /api/v1/storage
       tls: true
     appointments:
       type: ClusterIP
       port: 22222
       ingress: true
       hostname: dev-cd.impfterm.in
+      path: /api/v1/appointments
       tls: true
 static:
   nameOverride: "static"
