@@ -33,14 +33,14 @@ kiebitz:
       ingress: true
       hostname: test.impfterm.in
       tls: true
-      path: /api/v1/storage/.*
+      path: /api/v1/storage
     appointments:
       type: ClusterIP
       port: 22222
       ingress: true
       hostname: test.impfterm.in
       tls: true
-      path: /api/v1/appointments/.*
+      path: /api/v1/appointments
 static:
   nameOverride: "static"
   service:
