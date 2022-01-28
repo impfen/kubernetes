@@ -17,4 +17,5 @@ spec:
       name: http
   selector:
     {{- $selectorLabels | nindent 4 }}
+---
 {{- end }}

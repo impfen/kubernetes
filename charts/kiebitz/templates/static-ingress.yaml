@@ -54,4 +54,5 @@ spec:
               servicePort: {{ $settings.port }}
               {{- end }}
 {{- end }}
+---
 {{- end }}
