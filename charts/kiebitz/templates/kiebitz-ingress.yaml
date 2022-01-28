@@ -39,7 +39,7 @@ spec:
     - host: {{ $settings.hostname }}
       http:
         paths:
-          - path: /
+          - path: {{- if $settings.path }} {{ $settings.path }} {{- else }} / {{- end }}
             {{- if (semverCompare ">=1.18-0" $capabilities.KubeVersion.GitVersion) }}
             pathType: Prefix
             {{- end }}
