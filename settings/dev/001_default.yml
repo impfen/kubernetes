@@ -19,19 +19,19 @@ storage:
   keys: []
   settings_ttl_days: 60
   http:
-    bind_address: localhost:11111
+    bind_address: 0.0.0.0:11111
     #tls:
     #  ca_certificate_file: "/$DIR/certs/root.crt"
     #  certificate_file: "/$DIR/certs/storage-1.crt"
     #  key_file: "/$DIR/certs/storage-1.key"
   jsonrpc:
     cors:
-      allowed_hosts: [ "http://localhost:8080" ]
+      allowed_hosts: [ ".*" ]
       allowed_headers: [ "*" ]
       allowed_methods: [ "POST" ]
   rest:
     cors:
-      allowed_hosts: [ "http://localhost:8080" ]
+      allowed_hosts: [ ".*" ]
       allowed_headers: [ "*" ]
       allowed_methods: [ "GET", "POST", "PUT", "DELETE" ]
 admin:
@@ -61,18 +61,18 @@ appointments:
     vaccines: ["biontech", "moderna", "astrazeneca", "johnson-johnson"]
   keys: [ ]
   http:
-    bind_address: localhost:22222
+    bind_address: 0.0.0.0:22222
     #tls:
     #  ca_certificate_file: "/$DIR/certs/root.crt"
     #  certificate_file: "/$DIR/certs/storage-1.crt"
     #  key_file: "/$DIR/certs/storage-1.key"
   jsonrpc:
     cors:
-      allowed_hosts: [ "http://localhost:8080" ]
+      allowed_hosts: [ ".*" ]
       allowed_headers: [ "*" ]
       allowed_methods: [ "POST" ]
   rest:
     cors:
-      allowed_hosts: [ "http://localhost:8080" ]
+      allowed_hosts: [ ".*" ]
       allowed_headers: [ "*" ]
       allowed_methods: [ "GET", "POST", "PUT", "DELETE" ]
