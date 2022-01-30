@@ -25,6 +25,9 @@ metadata:
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
+    {{- if $settings.rewrite-target }}
+    nginx.ingress.kubernetes.io/rewrite-target: {{ nginx.ingress.kubernetes.io/rewrite-target: }}
+    {{- end }}
 spec:
   {{- if and $values.ingress.className (semverCompare ">=1.18-0" $capabilities.KubeVersion.GitVersion) }}
   ingressClassName: {{ $values.ingress.className }}

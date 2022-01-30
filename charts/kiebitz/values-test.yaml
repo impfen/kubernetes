@@ -55,14 +55,14 @@ static:
       port: 80
       ingress: true
       hostname: mediator.test.impfterm.in
-      path: /mediator
+      rewrite-target: /mediator
       tls: true
     provider:
       type: ClusterIP
       port: 80
       ingress: true
       hostname: provider.test.impfterm.in
-      path: /provider
+      rewrite-target: /provider
       tls: true
   
 
@@ -111,7 +111,6 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
