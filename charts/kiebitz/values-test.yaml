@@ -55,14 +55,14 @@ static:
       port: 80
       ingress: true
       hostname: mediator.test.impfterm.in
-      rewrite-target: /mediator
+      rewritetarget: /mediator
       tls: true
     provider:
       type: ClusterIP
       port: 80
       ingress: true
       hostname: provider.test.impfterm.in
-      rewrite-target: /provider
+      rewritetarget: /provider
       tls: true
   
 
