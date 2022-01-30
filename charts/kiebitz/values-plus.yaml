@@ -50,7 +50,22 @@ static:
       ingress: true
       hostname: dev-cd.impfterm.in
       tls: true
-
+    mediator:
+      type: ClusterIP
+      port: 80
+      ingress: true
+      hostname: mediator.dev-cd.impfterm.in
+      path: /
+      rewritetarget: /mediator
+      tls: true
+    provider:
+      type: ClusterIP
+      port: 80
+      ingress: true
+      hostname: provider.dev-cd.impfterm.in
+      path: /
+      rewritetarget: /provider
+      tls: true
 
 
 serviceAccount:
