@@ -55,6 +55,7 @@ static:
       port: 80
       ingress: true
       hostname: mediator.test.impfterm.in
+      path: /
       rewritetarget: /mediator
       tls: true
     provider:
@@ -62,6 +63,7 @@ static:
       port: 80
       ingress: true
       hostname: provider.test.impfterm.in
+      path: /
       rewritetarget: /provider
       tls: true
   
