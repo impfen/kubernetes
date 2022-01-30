@@ -21,10 +21,14 @@ metadata:
   name: {{ $fullName }}-{{ $service }}
   labels:
     {{- $labels | nindent 4 }}
-  {{- with $values.ingress.annotations }}
   annotations:
+    {{- with $values.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
-  {{- end }}
+    {{- end }}
+    {{- if $settings.rewrite-target }}
+    nginx.ingress.kubernetes.io/rewrite-target: {{ $settings.rewrite-target }}
+    {{- end }}
+
 spec:
   {{- if and $values.ingress.className (semverCompare ">=1.18-0" $capabilities.KubeVersion.GitVersion) }}
   ingressClassName: {{ $values.ingress.className }}
