@@ -46,8 +46,8 @@ jobs:
     - name: Helm install Redis
       run: |
         helm repo add dandydev https://dandydeveloper.github.io/charts
-        helm install meter --set replicas=1 dandydev/redis-ha
-        helm install db --set replicas=1 dandydev/redis-ha
+        helm install meter --set replicas=3 dandydev/redis-ha
+        helm install db --set replicas=3 dandydev/redis-ha
         
         helm ls
         
