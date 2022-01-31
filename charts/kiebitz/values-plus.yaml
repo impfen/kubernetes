@@ -32,7 +32,7 @@ kiebitz:
       port: 11111
       ingress: true
       hostname: dev-cd.impfterm.in
-      path: /api/v1/storage
+      path: /api/v1/storage/
       rewritetarget: /
       tls: true
     appointments:
@@ -40,7 +40,7 @@ kiebitz:
       port: 22222
       ingress: true
       hostname: dev-cd.impfterm.in
-      path: /api/v1/appointments
+      path: /api/v1/appointments/
       rewritetarget: /
       tls: true
 static:
