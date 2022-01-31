@@ -33,6 +33,7 @@ kiebitz:
       ingress: true
       hostname: dev-cd.impfterm.in
       path: /api/v1/storage
+      rewritetarget: /
       tls: true
     appointments:
       type: ClusterIP
@@ -40,6 +41,7 @@ kiebitz:
       ingress: true
       hostname: dev-cd.impfterm.in
       path: /api/v1/appointments
+      rewritetarget: /
       tls: true
 static:
   nameOverride: "static"
