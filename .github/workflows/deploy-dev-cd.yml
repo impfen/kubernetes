@@ -73,7 +73,13 @@ jobs:
         
         
         helm install kiebitz-plus --values=charts/kiebitz/values-plus.yaml ./charts/kiebitz
-        
+        kubectl exec  db-redis-ha-server-0 -c redis -- redis-cli HSET  keys::mediators '"3k\xa7S\
+x80_,&\x1f\xd3\xecE|\xae\x9cV>K\x98\xa9\xdf\xa2\x1d\r\xe91\xe3\xde([`!"'  '"{\"id\":null,\"data\":\"{\\\"signing\\\":\\\
+"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAETSJZ9KVmezhR3vCoIEkehtIJzEoNIL/F0Nsk9ilAApxPQ87w4/6bEYmojI+2v5WDKt1fO7AHPIiTAbBz7sa
+xGA==\\\",\\\"encryption\\\":\\\"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE1HQsw6BScvruo2V1zRK7N8nOA8pTv8Gwc++8fHcqGgW2oGUYSSp
+msIi22cFsXNoorXM1+DGaoxwsiSdduz6dXA==\\\"}\",\"signature\":\"bfKqGCcboFJVwTh3YGPaCMo4OWlX3QUOftcMLDBzus19vJ+hbRjUCwBd26v
+VSR6BuTi7Tg4ngKj2BqXqUnTo9w==\",\"publicKey\":\"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEriEH2kmq7tSQevjf3Osoj80llE9KwJPR90t0
+bip5p26AXFz/c3WMiXKnw+5Zm636OCOdF0Yk/0+/5PfAP809tw==\"}"'
         cat <<EOF
         
         waiting for deployments getting available
