@@ -32,16 +32,16 @@ kiebitz:
       port: 11111
       ingress: true
       hostname: dev-cd.impfterm.in
-      path: /api/v1/storage/
-      rewritetarget: /
+      path: /api/v1/storage/(.*)
+      rewritetarget: /$1
       tls: true
     appointments:
       type: ClusterIP
       port: 22222
       ingress: true
       hostname: dev-cd.impfterm.in
-      path: /api/v1/appointments/
-      rewritetarget: /
+      path: /api/v1/appointments/(.*)
+      rewritetarget: /$1
       tls: true
 static:
   nameOverride: "static"
@@ -57,16 +57,16 @@ static:
       port: 80
       ingress: true
       hostname: mediator.dev-cd.impfterm.in
-      path: /
-      rewritetarget: /mediator
+      path: /(.*)
+      rewritetarget: /mediator/$1
       tls: true
     provider:
       type: ClusterIP
       port: 80
       ingress: true
       hostname: provider.dev-cd.impfterm.in
-      path: /
-      rewritetarget: /provider
+      path: /(.*)
+      rewritetarget: /provider/$1
       tls: true
 
 
