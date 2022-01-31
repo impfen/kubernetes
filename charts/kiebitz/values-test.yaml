@@ -33,14 +33,16 @@ kiebitz:
       ingress: true
       hostname: test.impfterm.in
       tls: true
-      path: /api/v1/storage/
+      path: /api/v1/storage/(.*)
+      rewritetarget: /$1
     appointments:
       type: ClusterIP
       port: 22222
       ingress: true
       hostname: test.impfterm.in
       tls: true
-      path: /api/v1/appointments/
+      path: /api/v1/storage/(.*)
+      rewritetarget: /$1
 static:
   nameOverride: "static"
   service:
@@ -55,16 +57,16 @@ static:
       port: 80
       ingress: true
       hostname: mediator.test.impfterm.in
-      path: /
-      rewritetarget: /mediator
+      path: /(.*)
+      rewritetarget: /mediator/$1
       tls: true
     provider:
       type: ClusterIP
       port: 80
       ingress: true
       hostname: provider.test.impfterm.in
-      path: /
-      rewritetarget: /provider
+      path: /(.*)
+      rewritetarget: /provider/$1
       tls: true
   
 
