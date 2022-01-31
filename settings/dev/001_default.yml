@@ -38,8 +38,8 @@ admin:
   signing:
     keys: [ ]
   client:
-    appointments_endpoint: http://localhost:22222/jsonrpc
-    storage_endpoint: http://localhost:11111/jsonrpc
+    appointments_endpoint: http://localhost:22222/api/v1/appointments
+    storage_endpoint: http://localhost:11111/api/v1/storage
 appointments:
   provider_codes_enabled: false
   user_codes_enabled: false
