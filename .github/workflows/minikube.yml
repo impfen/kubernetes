@@ -2,9 +2,9 @@ name: Minikube Helm Deployment
 on:
   push:
     branches: [ main ]
-# re-enable once we stop pull requests from triggering deployments
-#  pull_request:
-#    branches: [ main ]
+  # re-enable once we stop pull requests from triggering deployments
+  pull_request:
+    branches: [ main ]
   repository_dispatch:
     types: ["deployment"]
   workflow_dispatch:
