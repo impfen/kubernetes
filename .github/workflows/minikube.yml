@@ -85,8 +85,3 @@ jobs:
     - name: Helm tests
       run: |
         helm test kiebitz-minikube --debug --logs
-    - name: Dispatch raw deployment
-      uses: peter-evans/repository-dispatch@v1
-      with:
-        token: ${{ secrets.PAT_FOR_WORKFLOW }}
-        event-type: raw-deployment

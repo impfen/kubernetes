@@ -3,7 +3,7 @@ on:
   workflow_call:
   workflow_dispatch:
   repository_dispatch:
-    types: ["raw-deployment"]
+    types: ["deployment"]
 
 concurrency:
   group: deployment
