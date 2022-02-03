@@ -34,7 +34,15 @@ jobs:
       continue-on-error: true    
     - name: Get rid of old secret if present
       run: kubectl delete secret kiebitz-dev
-      continue-on-error: true      
+      continue-on-error: true
+    - name: Helm install or upgrade Zalando Postgres
+      run: |
+        echo see https://github.com/zalando/postgres-operator/blob/master/docs/quickstart.md#manual-deployment-setup
+        git clone https://github.com/zalando/postgres-operator.git
+
+        echo see https://github.com/zalando/postgres-operator/blob/master/docs/quickstart.md#helm-chart
+        helm upgrade --install postgres-operator ./postgres-operator/charts/postgres-operator
+        
     - name: Helm install Application
       run: |
         echo Install secret
