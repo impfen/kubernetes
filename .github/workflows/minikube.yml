@@ -89,6 +89,8 @@ jobs:
         kubectl wait --for=condition=available --timeout=180s deployment/kiebitz-minikube-static
         kubectl wait --for=condition=available --timeout=180s deployment/kiebitz-minikube-kiebitz
 
+        kubectl wait --for=condition=available --timeout=120s deployment/postgres-operator
+        
         kubectl get all
 
 
