@@ -86,10 +86,10 @@ jobs:
         kubectl describe pods
         kubectl logs -l "app.kubernetes.io/name=kiebitz,app.kubernetes.io/instance=kiebitz-minikube"
 
-        kubectl wait --for=condition=available --timeout=180s deployment/kiebitz-minikube-static
-        kubectl wait --for=condition=available --timeout=180s deployment/kiebitz-minikube-kiebitz
+        kubectl wait --for=condition=available --timeout=240s deployment/kiebitz-minikube-static
+        kubectl wait --for=condition=available --timeout=240s deployment/kiebitz-minikube-kiebitz
 
-        kubectl wait --for=condition=available --timeout=120s deployment/postgres-operator
+        kubectl wait --for=condition=available --timeout=240s deployment/postgres-operator
         
         kubectl get all
 
