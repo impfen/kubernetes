@@ -1,11 +1,11 @@
 name: kiebitz
-meter:
-  name: meter
-  type: redis
-  settings:
-    addresses: ["meter-redis-ha:6379"]
-    database: 1
-    password: ""
+#meter:
+#  name: meter
+#  type: redis
+#  settings:
+#    addresses: ["meter-redis-ha:6379"]
+#    database: 1
+#    password: ""
 database:
   name: db
   type: redis
