@@ -13,8 +13,8 @@ database:
     addresses: ["db-redis-ha:6379"]
     database: 0
     password: ""
-metrics:
-  bind_address: "localhost:9091"
+#metrics:
+#  bind_address: "localhost:9091"
 storage:
   keys: []
   settings_ttl_days: 60
