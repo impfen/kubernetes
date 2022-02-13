@@ -36,7 +36,7 @@ jobs:
     - name: Helm install Redis
       run: |
         helm repo add dandydev https://dandydeveloper.github.io/charts
-        helm install meter --set replicas=1 dandydev/redis-ha
+        # helm install meter --set replicas=1 dandydev/redis-ha
         helm install db --set replicas=1 dandydev/redis-ha
         
         helm ls
@@ -47,18 +47,17 @@ jobs:
         
         EOF
 
-        kubectl wait -l statefulset.kubernetes.io/pod-name=meter-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
+        # kubectl wait -l statefulset.kubernetes.io/pod-name=meter-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
         kubectl wait -l statefulset.kubernetes.io/pod-name=db-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
 
     - name: Install Zalando Postres Operator
       run: |
    
-          echo Quickstart installation https://github.com/zalando/postgres-operator/blob/master/docs/quickstart.md
-            
+          echo DISABLED Quickstart installation https://github.com/zalando/postgres-operator/blob/master/docs/quickstart.md
           # First, clone the repository and change to the directory
-          git clone https://github.com/zalando/postgres-operator.git
+          # git clone https://github.com/zalando/postgres-operator.git
         
-          helm install postgres-operator ./postgres-operator/charts/postgres-operator
+          # helm install postgres-operator ./postgres-operator/charts/postgres-operator
 
     - name: Helm install Application
       run: |
