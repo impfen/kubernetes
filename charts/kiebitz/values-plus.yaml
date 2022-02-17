@@ -20,6 +20,8 @@ image:
     repository: services-inoeg
   static:
     repository: apps-inoeg
+  beacon:
+    repository: beacon-server
 
 certManager: true
 
@@ -68,7 +70,15 @@ static:
       path: /(.*)
       rewritetarget: /provider/$1
       tls: true
-
+beacon:
+  nameOverride: "beacon"
+  service:
+    beacon:
+      type: ClusterIP
+      port: 8090
+      ingress: true
+      hostname: beacon-dev-cd.impfterm.in
+      tls: true
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -84,6 +94,7 @@ podAnnotations: {}
 podSecurityContext: 
   kiebitz: {}
   static: {}
+  beacon: {}
   # fsGroup: 2000
 
 securityContext:
@@ -94,6 +105,13 @@ securityContext:
       drop:
       - ALL
 #    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 101
+  beacon:
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
     runAsNonRoot: true
     runAsUser: 101
 
