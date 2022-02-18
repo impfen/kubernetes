@@ -19,6 +19,8 @@ image:
     repository: services-inoeg
   static:
     repository: apps-inoeg
+  beacon:
+    repository: beacon-server
 
 certManager: true
 
@@ -67,7 +69,17 @@ static:
       path: /(.*)
       rewritetarget: /provider/$1
       tls: true
-
+beacon:
+  nameOverride: "beacon"
+  service:
+    beacon:
+      type: ClusterIP
+      port: 8090
+      ingress: true
+      hostname: beacon.demo.impfterm.in
+      rewritetarget: /$1
+      path: /(.*)
+      tls: true
 
 serviceAccount:
   # Specifies whether a service account should be created
