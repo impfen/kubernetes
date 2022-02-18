@@ -115,7 +115,7 @@ securityContext:
       - ALL
     readOnlyRootFilesystem: true
     runAsNonRoot: true
-    runAsUser: 101
+    runAsUser: 10111
 
 
 

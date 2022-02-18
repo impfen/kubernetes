@@ -19,7 +19,9 @@ image:
     repository: services-inoeg
   static:
     repository: apps-inoeg
-
+  beacon:
+    repository: beacon-server
+    
 certManager: true
 
 imagePullSecrets: []
