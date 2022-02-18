@@ -67,7 +67,17 @@ static:
       path: /(.*)
       rewritetarget: /provider/$1
       tls: true
-  
+beacon:
+  nameOverride: "beacon"
+  service:
+    beacon:
+      type: ClusterIP
+      port: 8090
+      ingress: true
+      hostname: beacon.test.impfterm.in
+      rewritetarget: /$1
+      path: /(.*)
+      tls: true  
 
 
 
@@ -97,6 +107,13 @@ securityContext:
 #    readOnlyRootFilesystem: true
     runAsNonRoot: true
     runAsUser: 101
+  beacon:
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 10112
 
 
 
