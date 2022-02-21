@@ -58,7 +58,7 @@ appointments:
     anon_aggregated_max_time_window: 7
     # the maximum duration for the time window for provider requests in days
     provider_max_time_window: 14
-    vaccines: ["mrna", "biontech", "biontechchildren", "moderna"]
+    vaccines: ["mrna", "biontech", "biontechchildren", "moderna", "novovax"]
   keys: [ ]
   http:
     bind_address: 0.0.0.0:22222
