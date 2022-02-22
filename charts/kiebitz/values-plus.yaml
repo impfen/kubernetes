@@ -30,6 +30,20 @@ imagePullSecrets: []
 ingressconfig:
   toplevel:
     hostname: dev-cd.impfterm.in
+    service:
+      storage:
+        port: 11111
+        path: /api/v1/storage/(.*)
+        rewritetarget: /$1
+        servicename: storage-foo
+      appointments:
+        port: 22222
+        path: /api/v1/appointments/(.*)
+        rewritetarget: /$1
+        servicename: appointments-foo
+      static:
+        port: 80
+        servicename: static-foo
   mediator:
     hostname: mediator.dev-cd.impfterm.in
   provider:
