@@ -26,6 +26,17 @@ image:
 certManager: true
 
 imagePullSecrets: []
+
+ingressconfig:
+  toplevel:
+    hostname: dev-cd.impfterm.in
+  mediator:
+    hostname: mediator.dev-cd.impfterm.in
+  provider:
+    hostname: provider.dev-cd.impfterm.in
+  beacon:
+    hostname: beacon.dev-cd.impfterm.in
+
 kiebitz:
   nameOverride: "kiebitz"
   service:
