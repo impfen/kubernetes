@@ -1,5 +1,5 @@
 {{- if .Values.certManager }}
-{{- $fullName := include "kiebitz.fullname" . }} # fixme, find a generic toplevel name
+{{- $fullName := .Release.Name }} # fixme, find a generic toplevel name
 {{- range $service, $settings := .Values.ingressconfig }}
 apiVersion: cert-manager.io/v1
 kind: Certificate
