@@ -146,11 +146,6 @@ securityContext:
 
 # generic ingress and letsencrypt settings for all services
 ingress:
-  enabled: true
-  tls:
-  - hosts: 
-    - dev-cd.impfterm.in
-    secretName: dev-cd-acme  
   className: "nginx"
   certEmail: "impfen@inoeg.de"
   # testing certServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
