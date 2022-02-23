@@ -25,61 +25,65 @@ image:
 certManager: true
 
 imagePullSecrets: []
-kiebitz:
-  nameOverride: "kiebitz"
-  service:
-    storage:
-      type: ClusterIP
-      port: 11111
-      ingress: true
-      hostname: test.impfterm.in
-      tls: true
-      path: /api/v1/storage/(.*)
-      rewritetarget: /$1
-    appointments:
-      type: ClusterIP
-      port: 22222
-      ingress: true
-      hostname: test.impfterm.in
-      tls: true
-      path: /api/v1/appointments/(.*)
-      rewritetarget: /$1
-static:
-  nameOverride: "static"
-  service:
-    static:
-      type: ClusterIP
-      port: 80
-      ingress: true
-      hostname: test.impfterm.in
-      tls: true
-    mediator:
-      type: ClusterIP
-      port: 80
-      ingress: true
-      hostname: mediator.test.impfterm.in
-      path: /(.*)
-      rewritetarget: /mediator/$1
-      tls: true
-    provider:
-      type: ClusterIP
-      port: 80
-      ingress: true
-      hostname: provider.test.impfterm.in
-      path: /(.*)
-      rewritetarget: /provider/$1
-      tls: true
-beacon:
-  nameOverride: "beacon"
-  service:
-    beacon:
-      type: ClusterIP
-      port: 8090
-      ingress: true
-      hostname: beacon.test.impfterm.in
-      rewritetarget: /$1
-      path: /(.*)
-      tls: true  
+ingressconfig:
+  toplevel:
+    hostname: test.impfterm.in
+    route:
+      storage:
+        port: 11111
+        path: /api/v1/storage/(.*)
+        rewritetarget: /$1
+        service: kiebitz-storage
+      appointments:
+        port: 22222
+        path: /api/v1/appointments/(.*)
+        rewritetarget: /$1
+        service: kiebitz-appointments
+      static:
+        port: 80
+        service: static-static
+  mediator:
+    hostname: mediator.test.impfterm.in
+    route:
+      storage:
+        port: 11111
+        path: /api/v1/storage/(.*)
+        rewritetarget: /$1
+        service: kiebitz-storage
+      appointments:
+        port: 22222
+        path: /api/v1/appointments/(.*)
+        rewritetarget: /$1
+        service: kiebitz-appointments
+      static:
+        port: 80
+        path: /(.*)
+        rewritetarget: /mediator/$1
+        service: static-mediator
+  provider:
+    hostname: provider.test.impfterm.in
+    route:
+      storage:
+        port: 11111
+        path: /api/v1/storage/(.*)
+        rewritetarget: /$1
+        service: kiebitz-storage
+      appointments:
+        port: 22222
+        path: /api/v1/appointments/(.*)
+        rewritetarget: /$1
+        service: kiebitz-appointments
+      static:
+        port: 80
+        path: /(.*)
+        rewritetarget: /provider/$1
+        service: static-provider
+  beacon:
+    hostname: beacon.test.impfterm.in
+    route:
+      beacon:
+        port: 80
+        service: beacon-beacon
 
 
 
@@ -121,11 +125,6 @@ securityContext:
 
 # generic ingress and letsencrypt settings for all services
 ingress:
-  enabled: true
-  tls:
-  - hosts: 
-    - test.impfterm.in
-    secretName: test-acme  
   className: "nginx"
   certEmail: "impfen@inoeg.de"
   # testing certServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
