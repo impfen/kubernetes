@@ -1,4 +1,4 @@
-{{- $fullName := include "kiebitz.fullname" . }}
+{{- $fullName := .Release.Name }}
 {{- $labels := include "kiebitz.labels" . }}
 {{- $values := .Values }}
 {{- range $host, $hostsettings := .Values.ingressconfig }}
