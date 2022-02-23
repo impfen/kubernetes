@@ -14,55 +14,98 @@ replicaCount: 1
 image:
   registry: ghcr.io/impfen
   pullPolicy: Always
-  tag: main
+  tag: latest
 #  tag: 0.7 
   kiebitz:
     repository: services-inoeg
   static:
     repository: apps-inoeg
+  beacon:
+    repository: beacon-server
 
-certManager: false
+certManager: true
 
 imagePullSecrets: []
+
+ingressconfig:
+  toplevel:
+    hostname: dev-cd.impfterm.in
+    route:
+      storage:
+        port: 11111
+        path: /api/v1/storage/(.*)
+        rewritetarget: /$1
+        service: kiebitz-storage
+      appointments:
+        port: 22222
+        path: /api/v1/appointments/(.*)
+        rewritetarget: /$1
+        service: kiebitz-appointments
+      static:
+        port: 80
+        service: static-static
+  mediator:
+    hostname: mediator.dev-cd.impfterm.in
+    route:
+      storage:
+        port: 11111
+        path: /api/v1/storage/(.*)
+        rewritetarget: /$1
+        service: kiebitz-storage
+      appointments:
+        port: 22222
+        path: /api/v1/appointments/(.*)
+        rewritetarget: /$1
+        service: kiebitz-appointments
+      static:
+        port: 80
+        path: /(.*)
+        rewritetarget: /mediator/$1
+        service: static-mediator
+  provider:
+    hostname: provider.dev-cd.impfterm.in
+    route:
+      storage:
+        port: 11111
+        path: /api/v1/storage/(.*)
+        rewritetarget: /$1
+        service: kiebitz-storage
+      appointments:
+        port: 22222
+        path: /api/v1/appointments/(.*)
+        rewritetarget: /$1
+        service: kiebitz-appointments
+      static:
+        port: 80
+        path: /(.*)
+        rewritetarget: /provider/$1
+        service: static-provider
+  beacon:
+    hostname: beacon.dev-cd.impfterm.in
+    route:
+      beacon:
+        port: 80
+        service: beacon-beacon
+
+
 kiebitz:
-  nameOverride: "kiebitz"
   service:
     storage:
-      type: ClusterIP
       port: 11111
-      ingress: true
-      hostname: dev-cd.impfterm.in
-      tls: true
     appointments:
-      type: ClusterIP
       port: 22222
-      ingress: true
-      hostname: dev-cd.impfterm.in
-      tls: true
 static:
-  nameOverride: "static"
   service:
     static:
-      type: ClusterIP
       port: 80
-      ingress: true
-      hostname: dev-cd.impfterm.in
-      tls: true
     mediator:
-      type: ClusterIP
       port: 80
-      ingress: true
-      hostname: mediator.dev-cd.impfterm.in
-      path: /mediator
-      tls: true
     provider:
-      type: ClusterIP
       port: 80
-      ingress: true
-      hostname: provider.dev-cd.impfterm.in
-      path: /provider
-      tls: true
-
+beacon:
+  service:
+    beacon:
+      port: 8090
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -78,6 +121,7 @@ podAnnotations: {}
 podSecurityContext: 
   kiebitz: {}
   static: {}
+  beacon: {}
   # fsGroup: 2000
 
 securityContext:
@@ -90,6 +134,13 @@ securityContext:
 #    readOnlyRootFilesystem: true
     runAsNonRoot: true
     runAsUser: 101
+  beacon:
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 10111
 
 
 
@@ -97,8 +148,8 @@ securityContext:
 ingress:
   className: "nginx"
   certEmail: "impfen@inoeg.de"
-  #  certServer: "https://acme-staging-v02.api.letsencrypt.org/directory" 
-  certServer: "https://acme-v02.api.letsencrypt.org/directory" 
+  # testing certServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+  certServer: "https://acme-v02.api.letsencrypt.org/directory" # for produktion
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"

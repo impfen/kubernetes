@@ -1,0 +1,16 @@
+{{- if .Values.certManager }}
+{{- $fullName := include "kiebitz.fullname" . }} # fixme, find a generic toplevel name
+{{- range $service, $settings := .Values.ingressconfig }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ $fullName }}-{{ $settings.hostname }}-cert
+spec:
+  secretName: {{ $fullName }}-{{ $settings.hostname }}-certificate
+  issuerRef:
+    name: letsencrypt
+  dnsNames:
+  - {{ $settings.hostname }}
+---
+{{- end }}
+{{- end }}

@@ -1,0 +1,40 @@
+{{- $fullName := .Release.Name }}
+{{- $labels := include "kiebitz.labels" . }}
+{{- $values := .Values }}
+{{- range $host, $hostsettings := .Values.ingressconfig }}
+{{- range $service, $servicerules := $hostsettings.route }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}-{{ $host }}-{{ $service }}
+  labels:
+    {{- $labels | nindent 4 }}
+  annotations:
+    {{- with $values.ingress.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- if $servicerules.rewritetarget }}
+    nginx.ingress.kubernetes.io/rewrite-target: {{ $servicerules.rewritetarget }}
+    {{- end }}
+spec:
+  ingressClassName: {{ $values.ingress.className }}
+  {{- if $values.certManager }}
+  tls:
+    - hosts:
+        - {{ $hostsettings.hostname }}
+      secretName: {{ $fullName }}-{{ $hostsettings.hostname }}-certificate
+  {{- end }}
+  rules:
+    - host: {{ $hostsettings.hostname }}
+      http:
+        paths:
+          - path: {{- if $servicerules.path }} {{ $servicerules.path }} {{- else }} / {{- end }}
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $fullName }}-{{ $servicerules.service }}
+                port:
+                  number: {{ $servicerules.port }}
+---
+{{- end }}
+{{- end }}

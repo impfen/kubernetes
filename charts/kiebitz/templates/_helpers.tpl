@@ -2,7 +2,7 @@
 Expand the name of the chart.
 */}}
 {{- define "kiebitz.name" -}}
-{{- default .Chart.Name .Values.kiebitz.nameOverride | trunc 63 | trimSuffix "-" }}
+"kiebitz"
 {{- end }}
 
 {{/*
@@ -11,8 +11,7 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 If release name contains chart name it will be used as a full name.
 */}}
 {{- define "kiebitz.fullname" -}}
-{{- $name := default .Chart.Name .Values.nameOverride }}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+{{- printf "%s-%s" .Release.Name "kiebitz" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
@@ -59,7 +58,7 @@ Create the name of the service account to use
 #
 
 {{- define "static.name" -}}
-{{- default .Chart.Name .Values.static.nameOverride | trunc 63 | trimSuffix "-" }}
+"static"
 {{- end }}
 
 {{/*
@@ -68,8 +67,7 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 If release name contains chart name it will be used as a full name.
 */}}
 {{- define "static.fullname" -}}
-{{- $name := default "static" .Values.static.nameOverride }}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+{{- printf "%s-%s" .Release.Name "static" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
@@ -100,7 +98,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 Expand the name of the chart.
 */}}
 {{- define "beacon.name" -}}
-{{- default .Chart.Name .Values.beacon.nameOverride | trunc 63 | trimSuffix "-" }}
+"beacon"
 {{- end }}
 
 {{/*
@@ -109,8 +107,7 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 If release name contains chart name it will be used as a full name.
 */}}
 {{- define "beacon.fullname" -}}
-{{- $name := default .Chart.Name .Values.beacon.nameOverride }}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+{{- printf "%s-%s" .Release.Name "beacon" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
