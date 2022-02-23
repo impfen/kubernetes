@@ -30,82 +30,82 @@ imagePullSecrets: []
 ingressconfig:
   toplevel:
     hostname: dev-cd.impfterm.in
-    service:
+    route:
       storage:
         port: 11111
         path: /api/v1/storage/(.*)
         rewritetarget: /$1
-        servicename: storage-foo
+        service: kiebitz-storage
       appointments:
         port: 22222
         path: /api/v1/appointments/(.*)
         rewritetarget: /$1
-        servicename: appointments-foo
+        service: kiebitz-appointments
       static:
         port: 80
-        servicename: static-foo
+        service: static-static
   mediator:
     hostname: mediator.dev-cd.impfterm.in
+    route:
+      storage:
+        port: 11111
+        path: /api/v1/storage/(.*)
+        rewritetarget: /$1
+        service: kiebitz-storage
+      appointments:
+        port: 22222
+        path: /api/v1/appointments/(.*)
+        rewritetarget: /$1
+        service: kiebitz-appointments
+      static:
+        port: 80
+        path: /(.*)
+        rewritetarget: /mediator/$1
+        service: static-mediator
   provider:
     hostname: provider.dev-cd.impfterm.in
+    route:
+      storage:
+        port: 11111
+        path: /api/v1/storage/(.*)
+        rewritetarget: /$1
+        service: kiebitz-storage
+      appointments:
+        port: 22222
+        path: /api/v1/appointments/(.*)
+        rewritetarget: /$1
+        service: kiebitz-appointments
+      static:
+        port: 80
+        path: /(.*)
+        rewritetarget: /provider/$1
+        service: static-provider
   beacon:
     hostname: beacon.dev-cd.impfterm.in
+    route:
+      beacon:
+        port: 80
+        service: beacon-beacon
+
 
 kiebitz:
-  nameOverride: "kiebitz"
   service:
     storage:
-      type: ClusterIP
       port: 11111
-      ingress: true
-      hostname: dev-cd.impfterm.in
-      path: /api/v1/storage/(.*)
-      rewritetarget: /$1
-      tls: true
     appointments:
-      type: ClusterIP
       port: 22222
-      ingress: true
-      hostname: dev-cd.impfterm.in
-      path: /api/v1/appointments/(.*)
-      rewritetarget: /$1
-      tls: true
 static:
-  nameOverride: "static"
   service:
     static:
-      type: ClusterIP
       port: 80
-      ingress: true
-      hostname: dev-cd.impfterm.in
-      tls: true
     mediator:
-      type: ClusterIP
       port: 80
-      ingress: true
-      hostname: mediator.dev-cd.impfterm.in
-      path: /(.*)
-      rewritetarget: /mediator/$1
-      tls: true
     provider:
-      type: ClusterIP
       port: 80
-      ingress: true
-      hostname: provider.dev-cd.impfterm.in
-      path: /(.*)
-      rewritetarget: /provider/$1
-      tls: true
 beacon:
-  nameOverride: "beacon"
   service:
     beacon:
-      type: ClusterIP
       port: 8090
-      ingress: true
-      hostname: beacon.dev-cd.impfterm.in
-      rewritetarget: /$1
-      path: /(.*)
-      tls: true
 
 serviceAccount:
   # Specifies whether a service account should be created
