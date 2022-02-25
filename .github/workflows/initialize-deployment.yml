@@ -1,0 +1,75 @@
+name: Inititalize kubernetes deployment
+on:
+  workflow_dispatch:
+    inputs:
+      cluster:
+        description: "The cluster to deploy to (implement me)"
+        required: true
+        default: 'fits'
+        type: choice
+        options:
+        - 'fits'
+        - 'plus'
+      namespace:
+        description: "The namespace to deploy to"
+        required: true
+        default: 'default'
+        type: string
+
+concurrency:
+  group: initialize-deployment
+  cancel-in-progress: true
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    env:
+      KUBE_CONFIG: ${{ secrets.KUBECONFIG_FITS }}
+      KUBECONFIG: /home/runner/work/kubernetes/kubernetes/kubeconfig.yml
+      NAMESPACE: ${{ github.event.inputs.namespace }}
+    steps:
+    - uses: actions/checkout@v2
+    - shell: bash
+      run: |
+        echo "$KUBE_CONFIG" | base64 -d > kubeconfig.yml
+        kubectl delete namespace $NAMESPACE || true
+        kubectl create namespace $NAMESPACE
+        kubectl config set-context --current --namespace=$NAMESPACE
+        kubectl version --client
+        helm version
+        echo Install secret
+        (
+          cd settings/dev
+          kubectl create secret generic kiebitz-dev \
+             --from-file=001_default.yml \
+             --from-file=002_admin.json \
+             --from-file=003_appt.json \
+             --from-file=004_storage.json \
+             --from-file=secret-mediator-keys
+        )
+        
+        helm repo add dandydev https://dandydeveloper.github.io/charts
+        helm install --namespace $NAMESPACE --set haproxy.enabled=true db dandydev/redis-ha
+        cat <<EOF
+        
+        waiting for Redis pods to become ready
+        
+        EOF
+
+        kubectl wait -l statefulset.kubernetes.io/pod-name=db-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
+        kubectl wait -l statefulset.kubernetes.io/pod-name=db-redis-ha-haproxy --for=condition=ready pod --timeout=-1s
+
+        helm install kiebitz ./charts/kiebitz
+
+        cat <<EOF
+        
+        waiting for deployments getting available
+        
+        EOF
+ 
+        kubectl wait --for=condition=available --timeout=60s deployment/kiebitz-static
+        kubectl wait --for=condition=available --timeout=60s deployment/kiebitz-kiebitz
+        
+        kubectl exec db-redis-ha-server-0 -c redis -- redis-cli -c -h db-redis-ha-haproxy flushall sync
+        kubectl exec `kubectl get pod -l app.kubernetes.io/name=kiebitz -o jsonpath='{.items[0].metadata.name}'` /kiebitz admin mediators upload /settings/secret-mediator-keys
+        kubectl exec db-redis-ha-server-0 -c redis -- redis-cli -c -h db-redis-ha-haproxy keys '*'
