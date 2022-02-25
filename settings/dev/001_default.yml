@@ -10,7 +10,7 @@ database:
   name: db
   type: redis
   settings:
-    addresses: ["db-redis-ha:6379"]
+    addresses: ["db-redis-ha-haproxy:6379"]
     database: 0
     password: ""
 #metrics:
