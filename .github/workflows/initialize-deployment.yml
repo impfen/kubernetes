@@ -24,7 +24,7 @@ jobs:
   run-tests:
     runs-on: ubuntu-latest
     env:
-      KUBE_CONFIG: ${{ secrets.KUBECONFIG_PLUS }}
+      KUBE_CONFIG: ${{ secrets.KUBECONFIG_PLUSCLOUD }}
       KUBECONFIG: /home/runner/work/kubernetes/kubernetes/kubeconfig.yml
       NAMESPACE: ${{ github.event.inputs.namespace }}
     steps:
