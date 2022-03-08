@@ -13,8 +13,17 @@ on:
       namespace:
         description: "The namespace to deploy to"
         required: true
-        default: 'default'
+        default: 'impfen-dev'
         type: string
+      config:
+        description: "Name of the values yaml file"
+        required: true
+        default: "values-plus.yaml"
+        type: choice
+        options:
+        - 'values-plus.yaml'
+        - 'values-test.yaml'
+        - 'values-demo.yaml'
 
 concurrency:
   group: initialize-deployment
@@ -57,9 +66,8 @@ jobs:
         EOF
 
         kubectl wait -l statefulset.kubernetes.io/pod-name=db-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
-        kubectl wait -l statefulset.kubernetes.io/pod-name=db-redis-ha-haproxy --for=condition=ready pod --timeout=-1s
 
-        helm install kiebitz ./charts/kiebitz
+        helm install kiebitz -f ./charts/kiebitz/${{ github.event.inputs.config }} ./charts/kiebitz
 
         cat <<EOF
         
@@ -70,6 +78,5 @@ jobs:
         kubectl wait --for=condition=available --timeout=60s deployment/kiebitz-static
         kubectl wait --for=condition=available --timeout=60s deployment/kiebitz-kiebitz
         
-        kubectl exec db-redis-ha-server-0 -c redis -- redis-cli -c -h db-redis-ha-haproxy flushall sync
         kubectl exec `kubectl get pod -l app.kubernetes.io/name=kiebitz -o jsonpath='{.items[0].metadata.name}'` /kiebitz admin mediators upload /settings/secret-mediator-keys
         kubectl exec db-redis-ha-server-0 -c redis -- redis-cli -c -h db-redis-ha-haproxy keys '*'
