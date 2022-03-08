@@ -20,7 +20,9 @@ jobs:
     - shell: bash
       run: |
         echo "$KUBE_CONFIG" | base64 -d > kubeconfig.yml
-    - run: kubectl version --client
+    - run: 
+        kubectl config set-context --current --namespace=impfen-dev|
+        kubectl version --client
     - name: Show all pods
       run: kubectl get pods -A
     - run: helm version
