@@ -58,7 +58,7 @@ jobs:
         )
         
         helm repo add dandydev https://dandydeveloper.github.io/charts
-        helm install --namespace $NAMESPACE --set podSecurityPolicy.create=true --set haproxy.enabled=true db dandydev/redis-ha
+        helm install --namespace $NAMESPACE --set haproxy.enabled=true db dandydev/redis-ha
         cat <<EOF
         
         waiting for Redis pods to become ready
