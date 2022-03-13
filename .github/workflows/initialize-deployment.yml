@@ -33,7 +33,7 @@ jobs:
   run-tests:
     runs-on: ubuntu-latest
     env:
-      KUBE_CONFIG: ${{ secrets.KUBECONFIG_FITS }}
+      KUBE_CONFIG: ${{ secrets.KUBECONFIG_PLUSCLOUD }}
       KUBECONFIG: /home/runner/work/kubernetes/kubernetes/kubeconfig.yml
       NAMESPACE: ${{ github.event.inputs.namespace }}
     steps:
@@ -67,7 +67,7 @@ jobs:
 
         kubectl wait -l statefulset.kubernetes.io/pod-name=db-redis-ha-server-0 --for=condition=ready pod --timeout=-1s
 
-        helm install kiebitz -f ./charts/kiebitz/${{ github.event.inputs.config }} ./charts/kiebitz
+        helm install kiebitz-plus -f ./charts/kiebitz/${{ github.event.inputs.config }} ./charts/kiebitz
 
         cat <<EOF
         
